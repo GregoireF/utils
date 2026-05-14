@@ -17,6 +17,10 @@
     }
   },
   "files": ["*.js", "*.d.ts"],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
   "peerDependencies": {
     "vitest": ">=2.0.0"
   }

@@ -10,6 +10,10 @@
     ".": "./index.cjs"
   },
   "files": ["index.cjs"],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
   "peerDependencies": {
     "cz-git": ">=1.9.0"
   }

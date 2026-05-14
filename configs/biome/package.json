@@ -10,6 +10,10 @@
     ".": "./biome.json"
   },
   "files": ["biome.json"],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
   "peerDependencies": {
     "@biomejs/biome": ">=1.9.0"
   }

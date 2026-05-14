@@ -10,6 +10,10 @@
     ".": "./index.cjs"
   },
   "files": ["index.cjs"],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
   "peerDependencies": {
     "@commitlint/cli": ">=19.0.0",
     "@commitlint/config-conventional": ">=19.0.0"

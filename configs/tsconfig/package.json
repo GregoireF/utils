@@ -12,5 +12,9 @@
     "./astro": "./astro.json",
     "./nuxt": "./nuxt.json"
   },
-  "files": ["*.json", "!package.json"]
+  "files": ["*.json", "!package.json"],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  }
 }
