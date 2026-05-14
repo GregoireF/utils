@@ -18,6 +18,8 @@ Every project ends up copying the same handful of utility functions. This packag
 pnpm add @gregoiref/ts-utils
 ```
 
+> Requires GitHub Packages — add `@gregoiref:registry=https://npm.pkg.github.com` to your `.npmrc`.
+
 ## API
 
 ### Object utilities

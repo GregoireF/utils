@@ -1,7 +1,8 @@
 # @gregoiref/tsconfig
 
-![npm version](https://img.shields.io/npm/v/@gregoiref/tsconfig)
-![license](https://img.shields.io/npm/l/@gregoiref/tsconfig)
+[![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Ftsconfig%40*&label=version&color=blue)](https://github.com/GregoireF/utils/tags)
+[![CI](https://github.com/GregoireF/utils/actions/workflows/ci.yml/badge.svg)](https://github.com/GregoireF/utils/actions/workflows/ci.yml)
+[![license](https://img.shields.io/badge/license-MIT-blue)](https://github.com/GregoireF/utils/blob/main/LICENSE)
 
 Shared strict TypeScript configurations — base, node, dom, astro, nuxt.
 
@@ -14,6 +15,8 @@ Most projects start from `"strict": true` and then progressively add the remaini
 ```bash
 pnpm add -D @gregoiref/tsconfig
 ```
+
+> Requires GitHub Packages — add `@gregoiref:registry=https://npm.pkg.github.com` to your `.npmrc`.
 
 ## Usage
 

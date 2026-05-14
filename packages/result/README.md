@@ -20,6 +20,8 @@ No external library needed: the entire implementation is \~70 lines of pure Type
 pnpm add @gregoiref/result
 ```
 
+> Requires GitHub Packages — add `@gregoiref:registry=https://npm.pkg.github.com` to your `.npmrc`.
+
 ## API
 
 | Symbol | Signature | Description |

@@ -1,7 +1,8 @@
 # @gregoiref/commitlint-config
 
-![npm version](https://img.shields.io/npm/v/@gregoiref/commitlint-config)
-![license](https://img.shields.io/npm/l/@gregoiref/commitlint-config)
+[![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Fcommitlint-config%40*&label=version&color=blue)](https://github.com/GregoireF/utils/tags)
+[![CI](https://github.com/GregoireF/utils/actions/workflows/ci.yml/badge.svg)](https://github.com/GregoireF/utils/actions/workflows/ci.yml)
+[![license](https://img.shields.io/badge/license-MIT-blue)](https://github.com/GregoireF/utils/blob/main/LICENSE)
 
 Shared [commitlint](https://commitlint.js.org) configuration with emoji support — enforces Conventional Commits across all projects.
 
@@ -16,6 +17,8 @@ The emoji prefix is optional in the pattern (`✨ feat(scope): message` or `feat
 ```bash
 pnpm add -D @gregoiref/commitlint-config @commitlint/cli @commitlint/config-conventional
 ```
+
+> Requires GitHub Packages — add `@gregoiref:registry=https://npm.pkg.github.com` to your `.npmrc`.
 
 ## Usage
 

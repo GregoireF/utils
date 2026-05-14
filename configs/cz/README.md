@@ -1,7 +1,8 @@
 # @gregoiref/cz-config
 
-![npm version](https://img.shields.io/npm/v/@gregoiref/cz-config)
-![license](https://img.shields.io/npm/l/@gregoiref/cz-config)
+[![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Fcz-config%40*&label=version&color=blue)](https://github.com/GregoireF/utils/tags)
+[![CI](https://github.com/GregoireF/utils/actions/workflows/ci.yml/badge.svg)](https://github.com/GregoireF/utils/actions/workflows/ci.yml)
+[![license](https://img.shields.io/badge/license-MIT-blue)](https://github.com/GregoireF/utils/blob/main/LICENSE)
 
 Shared [cz-git](https://cz-git.qbb.sh) configuration with emoji — interactive guided commits for Conventional Commits.
 
@@ -14,6 +15,8 @@ Shared [cz-git](https://cz-git.qbb.sh) configuration with emoji — interactive 
 ```bash
 pnpm add -D @gregoiref/cz-config cz-git commitizen
 ```
+
+> Requires GitHub Packages — add `@gregoiref:registry=https://npm.pkg.github.com` to your `.npmrc`.
 
 ## Usage
 

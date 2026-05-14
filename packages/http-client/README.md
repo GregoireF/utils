@@ -17,6 +17,8 @@ The native `fetch` API is untyped, has no built-in timeout support, and exposes 
 pnpm add @gregoiref/http-client
 ```
 
+> Requires GitHub Packages — add `@gregoiref:registry=https://npm.pkg.github.com` to your `.npmrc`.
+
 Requires an environment with the global `fetch`, `Request`, `Response`, and `AbortSignal.any` (Node ≥ 18, modern browsers, Deno, Bun).
 
 ## API

@@ -18,6 +18,8 @@ Structured, typed logger with pluggable transports — zero dependencies.
 pnpm add @gregoiref/logger
 ```
 
+> Requires GitHub Packages — add `@gregoiref:registry=https://npm.pkg.github.com` to your `.npmrc`.
+
 ## API
 
 ### `createLogger(options?)`

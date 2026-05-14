@@ -46,9 +46,9 @@ pnpm commit
 
 ## Code Standards
 
-### Zero external dependencies on utility packages
+### No third-party runtime dependencies in utility packages
 
-Runtime dependencies in `packages/*` are forbidden. Use only TypeScript and the runtime's native APIs. This is the core philosophy — see `TRACKING.md` for the rationale.
+Third-party runtime dependencies in `packages/*` are forbidden. Use only TypeScript, the runtime's native APIs, and other packages from this monorepo (`workspace:*`). This is the core philosophy — see `TRACKING.md` for the rationale.
 
 ### Strict TypeScript
 
@@ -135,7 +135,7 @@ Before opening a PR, verify:
 - [ ] JSDoc on all exported symbols
 - [ ] README.md updated if the public API changed
 - [ ] Changeset added for user-facing changes (see below)
-- [ ] No external runtime dependencies introduced in `packages/*`
+- [ ] No third-party runtime dependencies introduced in `packages/*` (inter-monorepo `workspace:*` deps are allowed)
 
 ---
 

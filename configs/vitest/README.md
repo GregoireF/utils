@@ -1,19 +1,22 @@
 # @gregoiref/vitest-config
 
-![npm version](https://img.shields.io/npm/v/@gregoiref/vitest-config)
-![license](https://img.shields.io/npm/l/@gregoiref/vitest-config)
+[![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Fvitest-config%40*&label=version&color=blue)](https://github.com/GregoireF/utils/tags)
+[![CI](https://github.com/GregoireF/utils/actions/workflows/ci.yml/badge.svg)](https://github.com/GregoireF/utils/actions/workflows/ci.yml)
+[![license](https://img.shields.io/badge/license-MIT-blue)](https://github.com/GregoireF/utils/blob/main/LICENSE)
 
 Shared Vitest configuration with v8 coverage thresholds — base (node) and dom variants.
 
 ## Why
 
-Vitest's default coverage setup has no thresholds and no standard reporter output. Without enforced thresholds, coverage silently degrades as new code is added without tests. This config enforces **90% on all four metrics** (lines, functions, branches, statements) and outputs HTML + JSON summary reports alongside the text table — making coverage visible in CI and in the browser.
+Vitest's default coverage setup has no thresholds and no standard reporter output. Without enforced thresholds, coverage silently degrades as new code is added without tests. This config enforces **100% on all four metrics** (lines, functions, branches, statements) and outputs HTML + JSON summary reports alongside the text table — making coverage visible in CI and in the browser.
 
 ## Installation
 
 ```bash
 pnpm add -D @gregoiref/vitest-config vitest @vitest/coverage-v8
 ```
+
+> Requires GitHub Packages — add `@gregoiref:registry=https://npm.pkg.github.com` to your `.npmrc`.
 
 ## Usage
 
@@ -53,7 +56,7 @@ export default defineConfig({
 | `globals` | `true` | `true` |
 | `environment` | `node` | `jsdom` |
 | Coverage provider | `v8` | `v8` |
-| Coverage threshold | 90% (lines/fns/branches/stmts) | same |
+| Coverage threshold | 100% (lines/fns/branches/stmts) | same |
 | Coverage reporters | `text`, `json-summary`, `html` | same |
 | Coverage includes | `src/**` | `src/**` |
 | Coverage excludes | `*.d.ts`, `*.test.ts`, `*.spec.ts` | same |
@@ -69,4 +72,4 @@ export default defineConfig({
 
 - Requires `vitest >= 2.0.0` and `@vitest/coverage-v8` as peer dependencies.
 - The `dom` config requires `jsdom` — install it separately: `pnpm add -D jsdom`.
-- Coverage thresholds fail the test run if not met. To temporarily lower them, pass `coverage: { thresholds: { lines: 80 } }` in the overrides object.
+- Coverage thresholds fail the test run if not met. To temporarily lower them, pass `coverage: { thresholds: { lines: 90 } }` in the overrides object.

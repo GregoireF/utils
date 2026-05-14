@@ -20,6 +20,8 @@ Type inference is fully static: the output type of `createEnv` is computed at co
 pnpm add @gregoiref/env-validator
 ```
 
+> Requires GitHub Packages — add `@gregoiref:registry=https://npm.pkg.github.com` to your `.npmrc`.
+
 > **Note:** `@types/node` is required for `process.env` access in Node environments.
 
 ## API

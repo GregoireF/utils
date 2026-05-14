@@ -20,6 +20,8 @@ All functions accept `Date | string | number` as input and always return a new `
 pnpm add @gregoiref/date
 ```
 
+> Requires GitHub Packages — add `@gregoiref:registry=https://npm.pkg.github.com` to your `.npmrc`.
+
 ## API
 
 | Function | Signature | Description |

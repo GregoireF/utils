@@ -1,7 +1,8 @@
 # @gregoiref/biome-config
 
-![npm version](https://img.shields.io/npm/v/@gregoiref/biome-config)
-![license](https://img.shields.io/npm/l/@gregoiref/biome-config)
+[![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Fbiome-config%40*&label=version&color=blue)](https://github.com/GregoireF/utils/tags)
+[![CI](https://github.com/GregoireF/utils/actions/workflows/ci.yml/badge.svg)](https://github.com/GregoireF/utils/actions/workflows/ci.yml)
+[![license](https://img.shields.io/badge/license-MIT-blue)](https://github.com/GregoireF/utils/blob/main/LICENSE)
 
 Shared [Biome](https://biomejs.dev) configuration for TypeScript projects — lint + format in one tool.
 
@@ -14,6 +15,8 @@ Biome replaces ESLint + Prettier with a single Rust-powered tool that is 10–10
 ```bash
 pnpm add -D @gregoiref/biome-config @biomejs/biome
 ```
+
+> Requires GitHub Packages — add `@gregoiref:registry=https://npm.pkg.github.com` to your `.npmrc`.
 
 ## Usage
 

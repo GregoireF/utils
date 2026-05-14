@@ -37,7 +37,7 @@ A TypeScript monorepo of zero-dependency utility libraries and shared configs, u
 
 | Alternative | Why this instead |
 |---|---|
-| `axios` | Wraps `fetch` with a 5 kB runtime dep; `@gregoiref/http-client` does the same with zero extra bytes |
+| `axios` | Wraps `fetch` with a 5 kB runtime dep; `@gregoiref/http-client` is a thin typed shell — the only runtime dep is `@gregoiref/result` from this same monorepo |
 | `zod` | Brings 15 kB for runtime validation; `@gregoiref/env-validator` covers the env-only use case at zero cost |
 | `neverthrow` | A fine library — this exists to stay in the monorepo and use no external deps |
 | `date-fns` | Comprehensive but heavy; `@gregoiref/date` covers the 20% of operations that handle 80% of cases |
