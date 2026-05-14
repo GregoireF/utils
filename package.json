@@ -1,0 +1,52 @@
+{
+  "name": "@gregoiref/utils",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@9.0.5",
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=9"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "check": "turbo run check",
+    "commit": "git-cz",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "turbo run build && changeset publish",
+    "prepare": "husky"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx,mjs,cjs}": [
+      "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true"
+    ],
+    "*.{json,css,html}": [
+      "biome format --write --no-errors-on-unmatched --files-ignore-unknown=true"
+    ]
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
+    "@changesets/cli": "^2.27.12",
+    "@gregoiref/commitlint-config": "workspace:*",
+    "@gregoiref/cz-config": "workspace:*",
+    "@secretlint/secretlint-rule-preset-recommend": "^9.3.3",
+    "commitizen": "^4.3.1",
+    "cz-git": "^1.11.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.3.0",
+    "secretlint": "^9.3.3",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.3"
+  }
+}

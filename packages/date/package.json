@@ -1,0 +1,31 @@
+{
+  "name": "@gregoiref/date",
+  "version": "0.0.0",
+  "description": "Lightweight date utilities for TypeScript — format, parse, diff, add — zero dependencies",
+  "keywords": ["typescript", "date", "format", "parse", "zero-dependencies"],
+  "homepage": "https://github.com/GregoireF/utils/tree/main/packages/date",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist", "!dist/**/*.test.*"],
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "lint": "biome check src",
+    "typecheck": "tsc",
+    "test": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@gregoiref/biome-config": "workspace:*",
+    "@gregoiref/tsconfig": "workspace:*",
+    "@gregoiref/vitest-config": "workspace:*",
+    "@vitest/coverage-v8": "^4.0.0",
+    "vitest": "^4.0.0"
+  }
+}

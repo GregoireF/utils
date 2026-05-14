@@ -1,0 +1,34 @@
+# Normalize line endings to LF on commit for all text files.
+# This ensures consistent diffs across Windows / macOS / Linux contributors.
+* text=auto eol=lf
+
+# Explicitly mark source files as text
+*.ts    text eol=lf
+*.js    text eol=lf
+*.mjs   text eol=lf
+*.cjs   text eol=lf
+*.json  text eol=lf
+*.yaml  text eol=lf
+*.yml   text eol=lf
+*.md    text eol=lf
+*.html  text eol=lf
+*.css   text eol=lf
+*.sh    text eol=lf
+
+# Binary files — never touch line endings or content
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.ico    binary
+*.woff   binary
+*.woff2  binary
+*.ttf    binary
+*.eot    binary
+*.otf    binary
+*.zip    binary
+*.tar    binary
+*.gz     binary
+
+# Lockfiles — treat as binary to avoid spurious line-ending diffs
+pnpm-lock.yaml binary

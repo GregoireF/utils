@@ -1,0 +1,7 @@
+{
+  "extends": "@gregoiref/tsconfig/base",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "include": ["src", "tests", "vitest.config.ts"]
+}

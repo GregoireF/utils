@@ -1,0 +1,16 @@
+{
+  "name": "@gregoiref/biome-config",
+  "version": "0.0.0",
+  "description": "Shared Biome (lint + format) configuration for TypeScript projects — @GregoireF",
+  "keywords": ["biome", "linting", "formatting", "typescript", "configuration"],
+  "homepage": "https://github.com/GregoireF/utils/tree/main/configs/biome",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./biome.json"
+  },
+  "files": ["biome.json"],
+  "peerDependencies": {
+    "@biomejs/biome": ">=1.9.0"
+  }
+}

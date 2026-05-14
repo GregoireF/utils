@@ -1,0 +1,17 @@
+{
+  "name": "@gregoiref/commitlint-config",
+  "version": "0.0.0",
+  "description": "Shared commitlint configuration with emoji support — @GregoireF projects",
+  "keywords": ["commitlint", "conventional-commits", "emoji", "commitlint-config"],
+  "homepage": "https://github.com/GregoireF/utils",
+  "license": "MIT",
+  "main": "index.cjs",
+  "exports": {
+    ".": "./index.cjs"
+  },
+  "files": ["index.cjs"],
+  "peerDependencies": {
+    "@commitlint/cli": ">=19.0.0",
+    "@commitlint/config-conventional": ">=19.0.0"
+  }
+}

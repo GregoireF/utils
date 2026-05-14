@@ -1,0 +1,16 @@
+{
+  "name": "@gregoiref/cz-config",
+  "version": "0.0.0",
+  "description": "Shared cz-git configuration with emoji — @GregoireF projects",
+  "keywords": ["commitizen", "cz-git", "emoji", "conventional-commits"],
+  "homepage": "https://github.com/GregoireF/utils",
+  "license": "MIT",
+  "main": "index.cjs",
+  "exports": {
+    ".": "./index.cjs"
+  },
+  "files": ["index.cjs"],
+  "peerDependencies": {
+    "cz-git": ">=1.9.0"
+  }
+}

@@ -1,0 +1,57 @@
+'use strict'
+
+/** @type {import('cz-git').UserConfig} */
+module.exports = {
+  messages: {
+    type: 'Select the type of change:',
+    scope: 'Which package is affected? (optional)',
+    customScope: 'Which package is affected?',
+    subject: 'Short, imperative description:\n',
+    body: "Longer description (optional). Use '|' to break a line:\n",
+    breaking: 'BREAKING CHANGES (optional):\n',
+    footerPrefixesSelect: 'Related issue (optional):',
+    customFooterPrefix: 'Issue prefix:',
+    footer: 'Issue numbers (e.g. #31, #34):\n',
+    confirmCommit: 'Confirm this commit?',
+  },
+  types: [
+    { value: 'feat', name: '✨ feat:      A new feature', emoji: ':sparkles:' },
+    { value: 'fix', name: '🐛 fix:       A bug fix', emoji: ':bug:' },
+    { value: 'docs', name: '📝 docs:      Documentation only', emoji: ':memo:' },
+    { value: 'style', name: '💄 style:     Format, no functional change', emoji: ':lipstick:' },
+    { value: 'refactor', name: '♻️  refactor:  Refactor without fix or feat', emoji: ':recycle:' },
+    { value: 'perf', name: '⚡️ perf:      Performance improvement', emoji: ':zap:' },
+    {
+      value: 'test',
+      name: '✅ test:      Add or fix tests',
+      emoji: ':white_check_mark:',
+    },
+    {
+      value: 'build',
+      name: '📦 build:     Build system or external dependencies',
+      emoji: ':package:',
+    },
+    { value: 'ci', name: '🎡 ci:        CI/CD configuration', emoji: ':ferris_wheel:' },
+    { value: 'chore', name: '🔨 chore:     Other changes outside src/test', emoji: ':hammer:' },
+    { value: 'revert', name: '⏪ revert:    Revert a previous commit', emoji: ':rewind:' },
+    {
+      value: 'wip',
+      name: '🚧 wip:       Work in progress (do not merge)',
+      emoji: ':construction:',
+    },
+  ],
+  useEmoji: true,
+  emojiAlign: 'left',
+  useAI: false,
+  allowCustomScopes: true,
+  allowEmptyScopes: true,
+  customScopesAlign: 'bottom',
+  allowBreakingChanges: ['feat', 'fix'],
+  skipQuestions: ['footer'],
+  upperCaseSubject: false,
+  markBreakingChangeMode: false,
+  breaklineNumber: 100,
+  breaklineChar: '|',
+  minSubjectLength: 3,
+  confirmColorize: true,
+}

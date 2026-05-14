@@ -1,0 +1,10 @@
+{
+  "extends": "@gregoiref/tsconfig/base",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "types": ["node"]
+  },
+  "include": ["src"],
+  "exclude": ["src/**/*.test.ts", "src/**/*.spec.ts"]
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "language": "en,fr",
+  "dictionaries": ["custom"],
+  "dictionaryDefinitions": [
+    {
+      "name": "custom",
+      "addWords": true,
+      "path": ".cspell.words.txt"
+    }
+  ],
+  "words": [
+    "gregoiref",
+    "tsconfig",
+    "biome",
+    "biomejs",
+    "turbo",
+    "turborepo",
+    "commitlint",
+    "commitizen",
+    "cz-git",
+    "gitmoji",
+    "secretlint",
+    "pnpm",
+    "husky",
+    "semver",
+    "vitest",
+    "nuxt",
+    "astro",
+    "impérative",
+    "dépendances",
+    "concerné",
+    "Sélectionne",
+    "Confirmer"
+  ],
+  "ignorePaths": ["node_modules/**", "dist/**", ".turbo/**", "pnpm-lock.yaml", "*.lock"]
+}

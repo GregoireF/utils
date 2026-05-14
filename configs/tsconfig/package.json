@@ -1,0 +1,16 @@
+{
+  "name": "@gregoiref/tsconfig",
+  "version": "0.0.0",
+  "description": "Shared strict TypeScript configurations — base, node, dom, astro, nuxt — @GregoireF",
+  "keywords": ["typescript", "tsconfig", "configuration", "strict"],
+  "homepage": "https://github.com/GregoireF/utils/tree/main/configs/tsconfig",
+  "license": "MIT",
+  "exports": {
+    "./base": "./base.json",
+    "./node": "./node.json",
+    "./dom": "./dom.json",
+    "./astro": "./astro.json",
+    "./nuxt": "./nuxt.json"
+  },
+  "files": ["*.json", "!package.json"]
+}
