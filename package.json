@@ -14,16 +14,11 @@
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
     "check": "turbo run check",
-    "commit": "git-cz",
+    "commit": "czg",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "turbo run build && changeset publish",
     "prepare": "husky"
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-git"
-    }
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,mjs,cjs}": [
@@ -41,8 +36,8 @@
     "@gregoiref/commitlint-config": "workspace:*",
     "@gregoiref/cz-config": "workspace:*",
     "@secretlint/secretlint-rule-preset-recommend": "^9.3.3",
-    "commitizen": "^4.3.1",
     "cz-git": "^1.11.0",
+    "esbuild": ">=0.25.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.3.0",
     "secretlint": "^9.3.3",
