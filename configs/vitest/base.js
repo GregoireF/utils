@@ -9,10 +9,10 @@ export function createBaseConfig(overrides = {}) {
     coverage: {
       provider: 'v8',
       thresholds: {
-        lines: 90,
-        functions: 90,
-        branches: 90,
-        statements: 90,
+        lines: 100,
+        functions: 100,
+        branches: 100,
+        statements: 100,
       },
       reporter: ['text', 'json-summary', 'html'],
       include: ['src/**'],

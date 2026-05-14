@@ -1,15 +1,15 @@
 # @gregoiref/http-client
 
-![npm version](https://img.shields.io/npm/v/@gregoiref/http-client)
-![license](https://img.shields.io/npm/l/@gregoiref/http-client)
-![zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)
-![coverage](https://img.shields.io/badge/coverage-96%25-brightgreen)
+[![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Fhttp-client%40*&label=version&color=blue)](https://github.com/GregoireF/utils/tags)
+[![CI](https://github.com/GregoireF/utils/actions/workflows/ci.yml/badge.svg)](https://github.com/GregoireF/utils/actions/workflows/ci.yml)
+[![coverage](https://codecov.io/gh/GregoireF/utils/graph/badge.svg?flag=http-client)](https://codecov.io/gh/GregoireF/utils)
+[![license](https://img.shields.io/badge/license-MIT-blue)](https://github.com/GregoireF/utils/blob/main/LICENSE)
 
-Typed `fetch` wrapper with interceptors, timeout, and structured errors — zero dependencies.
+Typed `fetch` wrapper with interceptors, timeout, and `Result<T, E>` error handling.
 
 ## Why
 
-The native `fetch` API is untyped, has no built-in timeout support, and exposes no interception layer. Axios solves all of this but ships its own HTTP layer rather than wrapping `fetch`, making it heavier and harder to polyfill on edge runtimes. This client is a thin typed shell around `fetch` — no new network primitives, no bundle weight.
+The native `fetch` API is untyped, has no built-in timeout support, and exposes no interception layer. Axios solves all of this but ships its own HTTP layer rather than wrapping `fetch`, making it heavier and harder to polyfill on edge runtimes. This client is a thin typed shell around `fetch` — no new network primitives, no bundle weight — with errors modelled as `Result<T, E>` values rather than thrown exceptions.
 
 ## Installation
 
@@ -35,12 +35,12 @@ Returns an object with:
 
 | Method | Signature |
 |---|---|
-| `.get<T>(url, opts?)` | → `Promise<HttpResponse<T>>` |
-| `.post<T>(url, body?, opts?)` | → `Promise<HttpResponse<T>>` |
-| `.put<T>(url, body?, opts?)` | → `Promise<HttpResponse<T>>` |
-| `.patch<T>(url, body?, opts?)` | → `Promise<HttpResponse<T>>` |
-| `.delete<T>(url, opts?)` | → `Promise<HttpResponse<T>>` |
-| `.request<T>(url, opts?)` | → `Promise<HttpResponse<T>>` |
+| `.get<T>(url, opts?)` | → `Promise<Result<HttpResponse<T>, HttpError \| TimeoutError>>` |
+| `.post<T>(url, body?, opts?)` | → `Promise<Result<HttpResponse<T>, HttpError \| TimeoutError>>` |
+| `.put<T>(url, body?, opts?)` | → `Promise<Result<HttpResponse<T>, HttpError \| TimeoutError>>` |
+| `.patch<T>(url, body?, opts?)` | → `Promise<Result<HttpResponse<T>, HttpError \| TimeoutError>>` |
+| `.delete<T>(url, opts?)` | → `Promise<Result<HttpResponse<T>, HttpError \| TimeoutError>>` |
+| `.request<T>(url, opts?)` | → `Promise<Result<HttpResponse<T>, HttpError \| TimeoutError>>` |
 
 ### `HttpResponse<T>`
 
@@ -54,14 +54,17 @@ interface HttpResponse<T> {
 
 ### Errors
 
-| Class | Thrown when |
+`HttpError` and `TimeoutError` are returned as `Err` values — they never throw. Unexpected errors (network failure, external `AbortSignal` cancellation) propagate as thrown exceptions.
+
+| Class | Condition |
 |---|---|
 | `HttpError` | Response status is non-2xx — exposes `.status` and `.response` |
-| `TimeoutError` | Request exceeds the configured timeout |
+| `TimeoutError` | Request exceeded the configured timeout |
 
 ## Usage
 
 ```ts
+import { isOk, isErr } from '@gregoiref/result'
 import { createHttpClient, HttpError, TimeoutError } from '@gregoiref/http-client'
 
 const api = createHttpClient({
@@ -70,21 +73,22 @@ const api = createHttpClient({
   timeout: 5000,
 })
 
-// ── GET ─────────────────────────────────────────────────────────────────────
-const { data, status } = await api.get<User[]>('/users')
-
-// ── POST ─────────────────────────────────────────────────────────────────────
-const { data: created } = await api.post<User>('/users', { name: 'Alice' })
-
-// ── Error handling ───────────────────────────────────────────────────────────
-try {
-  await api.get('/protected')
-} catch (e) {
-  if (e instanceof HttpError)    console.error(e.status, e.response)
-  if (e instanceof TimeoutError) console.error('Request timed out')
+// ── GET ──────────────────────────────────────────────────────────────────────
+const result = await api.get<User[]>('/users')
+if (isOk(result)) {
+  const { data, status } = result.value
 }
 
-// ── Interceptors ─────────────────────────────────────────────────────────────
+// ── POST ─────────────────────────────────────────────────────────────────────
+const created = await api.post<User>('/users', { name: 'Alice' })
+
+// ── Result-based error handling ───────────────────────────────────────────────
+if (isErr(created)) {
+  if (created.error instanceof HttpError)    console.error(created.error.status)
+  if (created.error instanceof TimeoutError) console.error('Request timed out')
+}
+
+// ── Interceptors ──────────────────────────────────────────────────────────────
 const authedApi = createHttpClient({
   baseUrl: 'https://api.example.com',
   requestInterceptors: [
@@ -98,13 +102,17 @@ const authedApi = createHttpClient({
   ],
 })
 
-// ── Per-request timeout override ─────────────────────────────────────────────
+// ── Per-request timeout override ──────────────────────────────────────────────
 await api.get('/slow-endpoint', { timeout: 30_000 })
 
-// ── External cancellation ────────────────────────────────────────────────────
+// ── External cancellation (throws, not Err) ───────────────────────────────────
 const controller = new AbortController()
 setTimeout(() => controller.abort(), 2000)
-await api.get('/stream', { signal: controller.signal })
+try {
+  await api.get('/stream', { signal: controller.signal })
+} catch {
+  // external abort propagates as a thrown error
+}
 ```
 
 ## Limitations
@@ -113,3 +121,4 @@ await api.get('/stream', { signal: controller.signal })
 - `responseInterceptors` run after the 2xx check — they do not see error responses. Inspect error responses in the `HttpError.response` field.
 - No automatic retry logic — implement retries in a `requestInterceptor` or wrap calls externally.
 - Requires `AbortSignal.any` (Node ≥ 18.17, Chrome 116). Polyfill needed for older targets.
+- External `AbortSignal` cancellation propagates as a thrown exception, not as an `Err` — it falls outside the `HttpError | TimeoutError` error contract.

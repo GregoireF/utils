@@ -17,6 +17,11 @@ function isPlainObject(val: unknown): val is Record<string, unknown> {
   return val !== null && typeof val === 'object' && !Array.isArray(val)
 }
 
+// Guards bracket-notation writes against prototype pollution. Keys like
+// `__proto__`, `constructor`, and `prototype` are unsafe because assigning
+// to them on a plain object modifies the shared prototype chain.
+const UNSAFE_KEYS = new Set(['__proto__', 'constructor', 'prototype'])
+
 // ─── Public API ────────────────────────────────────────────────────────────────
 
 /**
@@ -58,6 +63,7 @@ export function omit<T extends object, K extends keyof T>(obj: T, keys: readonly
 export function deepMerge<T extends Record<string, unknown>>(target: T, source: DeepPartial<T>): T {
   const result = { ...target }
   for (const key of Object.keys(source) as (keyof T & string)[]) {
+    if (UNSAFE_KEYS.has(key)) continue
     const srcVal = source[key]
     const tgtVal = target[key]
     if (isPlainObject(srcVal) && isPlainObject(tgtVal)) {

@@ -1,0 +1,37 @@
+flags:
+  result:
+    paths:
+      - packages/result/
+    carryforward: true
+  http-client:
+    paths:
+      - packages/http-client/
+    carryforward: true
+  ts-utils:
+    paths:
+      - packages/ts-utils/
+    carryforward: true
+  env-validator:
+    paths:
+      - packages/env-validator/
+    carryforward: true
+  logger:
+    paths:
+      - packages/logger/
+    carryforward: true
+  date:
+    paths:
+      - packages/date/
+    carryforward: true
+
+coverage:
+  status:
+    project:
+      default:
+        target: 100%
+        threshold: 0%
+
+comment:
+  layout: "reach,diff,flags,files"
+  behavior: default
+  require_changes: true

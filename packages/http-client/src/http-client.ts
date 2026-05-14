@@ -1,3 +1,5 @@
+import { type Result, err, ok } from '@gregoiref/result'
+
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
 /** HTTP methods supported by {@link createHttpClient}. */
@@ -24,7 +26,7 @@ export interface HttpResponse<T> {
 // ─── Errors ────────────────────────────────────────────────────────────────────
 
 /**
- * Thrown for any non-2xx HTTP response.
+ * Returned (as an `Err`) for any non-2xx HTTP response.
  * Preserves the original `Response` object for downstream inspection.
  */
 export class HttpError extends Error {
@@ -40,7 +42,7 @@ export class HttpError extends Error {
 }
 
 /**
- * Thrown when a request exceeds the configured timeout.
+ * Returned (as an `Err`) when a request exceeds the configured timeout.
  * Distinguishes a client-initiated abort from an external one so callers
  * can react differently (retry vs. propagate).
  */
@@ -144,6 +146,7 @@ async function applyInterceptors<T>(value: T, interceptors: Interceptor<T>[]): P
 /**
  * Executes the fetch and translates an `AbortError` that originated from the
  * timeout controller into a {@link TimeoutError} for clearer error semantics.
+ * Non-abort errors and external-signal aborts are re-thrown as-is.
  */
 async function tryFetch(
   fullUrl: string,
@@ -153,13 +156,13 @@ async function tryFetch(
 ): Promise<Response> {
   try {
     return await fetch(fullUrl, init)
-  } catch (err) {
+  } catch (e) {
     if (setup.timeoutId !== undefined) clearTimeout(setup.timeoutId)
-    const isAbort = err instanceof Error && err.name === 'AbortError'
+    const isAbort = e instanceof Error && e.name === 'AbortError'
     if (isAbort && setup.controllers.some((c) => c.signal.aborted)) {
       throw new TimeoutError(timeout as number)
     }
-    throw err
+    throw e
   }
 }
 
@@ -176,6 +179,11 @@ async function parseBody<T>(response: Response): Promise<T> {
 /**
  * Creates a typed HTTP client backed by the global `fetch`.
  *
+ * Every method returns `Result<HttpResponse<T>, HttpError | TimeoutError>`.
+ * - `HttpError` — the server responded with a non-2xx status.
+ * - `TimeoutError` — the request exceeded the configured timeout.
+ * - Unexpected errors (network failure, external abort) propagate as thrown exceptions.
+ *
  * @param options - Client-level defaults shared across all requests.
  * @returns An object with `get`, `post`, `put`, `patch`, `delete`, and `request` methods.
  *
@@ -187,7 +195,9 @@ async function parseBody<T>(response: Response): Promise<T> {
  *   timeout: 5000,
  * })
  *
- * const { data } = await api.get<User[]>('/users')
+ * const result = await api.get<User[]>('/users')
+ * if (result.ok) console.log(result.value.data)
+ * else           console.error(result.error)
  * ```
  */
 export function createHttpClient(options: HttpClientOptions = {}) {
@@ -199,7 +209,10 @@ export function createHttpClient(options: HttpClientOptions = {}) {
     responseInterceptors = [],
   } = options
 
-  async function request<T>(url: string, opts: RequestOptions = {}): Promise<HttpResponse<T>> {
+  async function request<T>(
+    url: string,
+    opts: RequestOptions = {},
+  ): Promise<Result<HttpResponse<T>, HttpError | TimeoutError>> {
     const { method = 'GET', headers = {}, body, timeout = defaultTimeout, signal } = opts
     const setup = buildAbortSetup(signal, timeout)
     let init = buildRequestInit(
@@ -209,18 +222,23 @@ export function createHttpClient(options: HttpClientOptions = {}) {
       setup.combinedSignal,
     )
 
-    init = await applyInterceptors(init, requestInterceptors)
-    let response = await tryFetch(`${baseUrl}${url}`, init, setup, timeout)
+    try {
+      init = await applyInterceptors(init, requestInterceptors)
+      let response = await tryFetch(`${baseUrl}${url}`, init, setup, timeout)
 
-    if (setup.timeoutId !== undefined) clearTimeout(setup.timeoutId)
-    response = await applyInterceptors(response, responseInterceptors)
+      if (setup.timeoutId !== undefined) clearTimeout(setup.timeoutId)
+      response = await applyInterceptors(response, responseInterceptors)
 
-    if (!response.ok) throw new HttpError(response)
+      if (!response.ok) return err(new HttpError(response))
 
-    return {
-      data: await parseBody<T>(response),
-      status: response.status,
-      headers: headersToRecord(response.headers),
+      return ok({
+        data: await parseBody<T>(response),
+        status: response.status,
+        headers: headersToRecord(response.headers),
+      })
+    } catch (e) {
+      if (e instanceof TimeoutError) return err(e)
+      throw e
     }
   }
 

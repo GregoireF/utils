@@ -10,6 +10,18 @@
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
+    },
+    "./array": {
+      "import": "./dist/array.js",
+      "types": "./dist/array.d.ts"
+    },
+    "./object": {
+      "import": "./dist/object.js",
+      "types": "./dist/object.d.ts"
+    },
+    "./function": {
+      "import": "./dist/function.js",
+      "types": "./dist/function.d.ts"
     }
   },
   "main": "./dist/index.js",

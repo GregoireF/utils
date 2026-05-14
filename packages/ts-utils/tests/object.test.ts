@@ -76,4 +76,10 @@ describe('deepMerge()', () => {
     const source = { arr: [4, 5] }
     expect(deepMerge(target, source)).toEqual({ arr: [4, 5] })
   })
+
+  it('ignores prototype-poisoning keys', () => {
+    const before = ({} as Record<string, unknown>)['evil']
+    deepMerge({ a: 1 }, { ['__proto__' as never]: { evil: true } })
+    expect(({} as Record<string, unknown>)['evil']).toBe(before)
+  })
 })

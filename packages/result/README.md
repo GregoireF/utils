@@ -1,9 +1,10 @@
 # @gregoiref/result
 
-![npm version](https://img.shields.io/npm/v/@gregoiref/result)
-![license](https://img.shields.io/npm/l/@gregoiref/result)
-![zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)
-![coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
+[![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Fresult%40*&label=version&color=blue)](https://github.com/GregoireF/utils/tags)
+[![CI](https://github.com/GregoireF/utils/actions/workflows/ci.yml/badge.svg)](https://github.com/GregoireF/utils/actions/workflows/ci.yml)
+[![coverage](https://codecov.io/gh/GregoireF/utils/graph/badge.svg?flag=result)](https://codecov.io/gh/GregoireF/utils)
+[![license](https://img.shields.io/badge/license-MIT-blue)](https://github.com/GregoireF/utils/blob/main/LICENSE)
+[![zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)](https://github.com/GregoireF/utils/tree/main/packages/result)
 
 Type-safe `Result<T, E>` pattern for TypeScript — zero dependencies.
 

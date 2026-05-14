@@ -120,6 +120,10 @@ importers:
         version: 4.1.6(@types/node@22.19.19)(@vitest/coverage-v8@4.1.6)(vite@8.0.13(@types/node@22.19.19)(esbuild@0.28.0)(jiti@2.6.1)(yaml@2.9.0))
 
   packages/http-client:
+    dependencies:
+      '@gregoiref/result':
+        specifier: workspace:*
+        version: link:../result
     devDependencies:
       '@gregoiref/biome-config':
         specifier: workspace:*

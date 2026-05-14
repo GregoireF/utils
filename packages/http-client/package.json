@@ -1,8 +1,8 @@
 {
   "name": "@gregoiref/http-client",
   "version": "0.0.0",
-  "description": "Typed fetch wrapper with interceptors, timeout, and Result<T, E> error handling — zero dependencies",
-  "keywords": ["typescript", "fetch", "http", "client", "result", "zero-dependencies"],
+  "description": "Typed fetch wrapper with interceptors, timeout, and Result<T, E> error handling",
+  "keywords": ["typescript", "fetch", "http", "client", "result"],
   "homepage": "https://github.com/GregoireF/utils/tree/main/packages/http-client",
   "license": "MIT",
   "type": "module",
@@ -24,6 +24,9 @@
     "lint": "biome check src",
     "typecheck": "tsc",
     "test": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@gregoiref/result": "workspace:*"
   },
   "devDependencies": {
     "@gregoiref/biome-config": "workspace:*",

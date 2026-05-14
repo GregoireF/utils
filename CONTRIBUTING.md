@@ -57,9 +57,9 @@ All code must comply with the strictest compiler flags (see `configs/tsconfig/ba
 - `noUncheckedIndexedAccess`
 - `noPropertyAccessFromIndexSignature`
 
-### Coverage ≥ 90%
+### Coverage at 100%
 
-All four coverage metrics (lines, functions, branches, statements) must stay above 90%. This is enforced by the Vitest threshold and will fail CI.
+All four coverage metrics (lines, functions, branches, statements) must reach 100%. This is enforced by the Vitest threshold and will fail CI.
 
 ### JSDoc on all public APIs
 
@@ -130,7 +130,7 @@ pnpm commit
 Before opening a PR, verify:
 
 - [ ] `pnpm turbo run check` passes with zero errors
-- [ ] Coverage ≥ 90% (`pnpm turbo run test` shows coverage table)
+- [ ] Coverage at 100% (`pnpm turbo run test` shows coverage table)
 - [ ] TypeScript strict-mode compliant (`pnpm turbo run typecheck`)
 - [ ] JSDoc on all exported symbols
 - [ ] README.md updated if the public API changed

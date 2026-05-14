@@ -1,13 +1,9 @@
 import { describe, expect, expectTypeOf, it } from 'vitest'
 import { EnvValidationError, createEnv, v } from '../src/index.js'
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
 function env(overrides: Record<string, string | undefined> = {}) {
   return overrides
 }
-
-// ─── v.string() ───────────────────────────────────────────────────────────────
 
 describe('v.string()', () => {
   it('returns the raw string value', () => {
@@ -60,8 +56,6 @@ describe('v.string()', () => {
   })
 })
 
-// ─── v.number() ───────────────────────────────────────────────────────────────
-
 describe('v.number()', () => {
   it('coerces string to number', () => {
     const result = createEnv({ PORT: v.number() }, env({ PORT: '3000' }))
@@ -106,8 +100,6 @@ describe('v.number()', () => {
   })
 })
 
-// ─── v.boolean() ──────────────────────────────────────────────────────────────
-
 describe('v.boolean()', () => {
   it.each([
     ['true', true],
@@ -119,8 +111,17 @@ describe('v.boolean()', () => {
     expect(result.FLAG).toBe(expected)
   })
 
+  it('throws when required var is missing', () => {
+    expect(() => createEnv({ FLAG: v.boolean() }, env())).toThrow(EnvValidationError)
+  })
+
   it('throws on invalid boolean string', () => {
     expect(() => createEnv({ FLAG: v.boolean() }, env({ FLAG: 'yes' }))).toThrow(EnvValidationError)
+  })
+
+  it('.optional() returns undefined when missing', () => {
+    const result = createEnv({ FLAG: v.boolean().optional() }, env())
+    expect(result.FLAG).toBeUndefined()
   })
 
   it('.default() uses default when missing', () => {
@@ -133,8 +134,6 @@ describe('v.boolean()', () => {
     expectTypeOf(result.FLAG).toBeBoolean()
   })
 })
-
-// ─── v.enum() ─────────────────────────────────────────────────────────────────
 
 describe('v.enum()', () => {
   const environments = ['development', 'production', 'test'] as const
@@ -170,8 +169,6 @@ describe('v.enum()', () => {
     expectTypeOf(result.NODE_ENV).toMatchTypeOf<'development' | 'production' | 'test' | undefined>()
   })
 })
-
-// ─── createEnv() — aggregate behavior ────────────────────────────────────────
 
 describe('createEnv()', () => {
   it('validates a complete schema successfully', () => {

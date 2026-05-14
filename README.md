@@ -1,157 +1,118 @@
 # @GregoireF/utils
 
-Monorepo de librairies utilitaires TypeScript — configs partagées, helpers typés et outils transverses utilisés à travers mes projets personnels (Astro, Nuxt, React).
+A TypeScript monorepo of zero-dependency utility libraries and shared configs, used across personal and professional projects. Built to demonstrate industrial-grade practices: strict types, 100% test coverage, automated versioning, and supply-chain security.
 
-Construit avec **pnpm workspaces** + **Turborepo** pour démontrer une approche industrielle du développement fullstack : qualité de code enforced, CI/CD automatisée, versioning sémantique par package et sécurité intégrée dès la base.
-
-**Philosophie : zéro dépendance externe sur les packages utilitaires.** Chaque package est construit avec TypeScript pur ou les APIs natives du runtime.
-
-[![CI](https://github.com/GregoireF/utils/actions/workflows/ci.yml/badge.svg)](https://github.com/GregoireF/utils/actions)
-[![codecov](https://codecov.io/gh/GregoireF/utils/branch/main/graph/badge.svg)](https://codecov.io/gh/GregoireF/utils)
+[![CI](https://github.com/GregoireF/utils/actions/workflows/ci.yml/badge.svg)](https://github.com/GregoireF/utils/actions/workflows/ci.yml)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/GregoireF/utils/badge)](https://scorecard.dev/viewer/?uri=github.com/GregoireF/utils)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 
 ---
 
-## Structure
+## Packages
 
-```
-utils/
-├── packages/                   ← librairies publiables (@gregoiref/*)
-│   ├── result/                 ← @gregoiref/result
-│   ├── ts-utils/               ← @gregoiref/ts-utils
-│   ├── env-validator/          ← @gregoiref/env-validator
-│   ├── http-client/            ← @gregoiref/http-client
-│   ├── logger/                 ← @gregoiref/logger
-│   └── date/                   ← @gregoiref/date
-├── configs/                    ← configs partagées (toutes publiables)
-│   ├── tsconfig/               ← @gregoiref/tsconfig
-│   ├── biome/                  ← @gregoiref/biome-config
-│   ├── vitest/                 ← @gregoiref/vitest-config
-│   ├── commitlint/             ← @gregoiref/commitlint-config
-│   └── cz/                     ← @gregoiref/cz-config
-├── .github/
-│   ├── workflows/
-│   │   ├── ci.yml              ← audit · lint · typecheck · test · coverage
-│   │   ├── release.yml         ← changesets version PR + npm publish
-│   │   ├── codeql.yml          ← analyse statique TypeScript
-│   │   └── scorecard.yml       ← OSSF Scorecard
-│   └── SECURITY.md
-├── .changeset/                 ← changesets (versioning par package)
-├── turbo.json
-├── pnpm-workspace.yaml
-├── renovate.json
-├── CONTRIBUTING.md
-├── TRACKING.md                 ← décisions techniques
-└── IDEA.md                     ← backlog des packages
-```
+### Utilities
 
----
+| Package | Version | Coverage | Description |
+|---|---|---|---|
+| [`@gregoiref/result`](packages/result/) | [![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Fresult%40*&label=&color=blue)](https://github.com/GregoireF/utils/tags) | [![coverage](https://codecov.io/gh/GregoireF/utils/graph/badge.svg?flag=result)](https://codecov.io/gh/GregoireF/utils) | `Result<T, E>` discriminated union — type-safe error handling without exceptions |
+| [`@gregoiref/ts-utils`](packages/ts-utils/) | [![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Fts-utils%40*&label=&color=blue)](https://github.com/GregoireF/utils/tags) | [![coverage](https://codecov.io/gh/GregoireF/utils/graph/badge.svg?flag=ts-utils)](https://codecov.io/gh/GregoireF/utils) | Advanced TypeScript generics: `deepMerge`, `pick`, `groupBy`, `memoize`, and more |
+| [`@gregoiref/env-validator`](packages/env-validator/) | [![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Fenv-validator%40*&label=&color=blue)](https://github.com/GregoireF/utils/tags) | [![coverage](https://codecov.io/gh/GregoireF/utils/graph/badge.svg?flag=env-validator)](https://codecov.io/gh/GregoireF/utils) | Type-safe environment validation without Zod or dotenv |
+| [`@gregoiref/http-client`](packages/http-client/) | [![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Fhttp-client%40*&label=&color=blue)](https://github.com/GregoireF/utils/tags) | [![coverage](https://codecov.io/gh/GregoireF/utils/graph/badge.svg?flag=http-client)](https://codecov.io/gh/GregoireF/utils) | Typed `fetch` wrapper with interceptors, timeout, and `Result`-based error handling |
+| [`@gregoiref/logger`](packages/logger/) | [![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Flogger%40*&label=&color=blue)](https://github.com/GregoireF/utils/tags) | [![coverage](https://codecov.io/gh/GregoireF/utils/graph/badge.svg?flag=logger)](https://codecov.io/gh/GregoireF/utils) | Structured JSON logger with pluggable transports |
+| [`@gregoiref/date`](packages/date/) | [![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Fdate%40*&label=&color=blue)](https://github.com/GregoireF/utils/tags) | [![coverage](https://codecov.io/gh/GregoireF/utils/graph/badge.svg?flag=date)](https://codecov.io/gh/GregoireF/utils) | Date helpers (format, diff, add, clamp) without date-fns or Moment |
 
-## Stack technique
+### Shared configs
 
-| Outil | Rôle |
+| Package | Description |
 |---|---|
-| `pnpm` | Package manager — workspaces, zéro duplication |
-| `turborepo` | Orchestration des tâches monorepo avec cache |
-| `typescript` | Typage strict (`exactOptionalPropertyTypes`, `noUncheckedIndexedAccess`) |
-| `biome` | Linting + formatting unifié (remplace ESLint + Prettier) |
-| `husky` | Git hooks — pre-commit, commit-msg, pre-push |
-| `lint-staged` | Biome uniquement sur les fichiers modifiés |
-| `commitlint` | Enforce Conventional Commits + emoji |
-| `cz-git` | CLI guidée avec sélection de type et scope |
-| `secretlint` | Détection de secrets avant chaque push |
-| `vitest` | Tests unitaires avec coverage v8 (seuil 90%) |
-| `changesets` | Versioning semver par package + CHANGELOG auto |
-| `renovate` | Mises à jour de dépendances automatisées |
-| **CodeQL** | Analyse statique de sécurité (`security-extended`) |
-| **OSSF Scorecard** | Score de sécurité open source |
+| [`@gregoiref/tsconfig`](configs/tsconfig/) | Strict TypeScript configs — base, node, dom, astro, nuxt |
+| [`@gregoiref/biome-config`](configs/biome/) | Biome lint + format for TypeScript projects |
+| [`@gregoiref/vitest-config`](configs/vitest/) | Vitest setup with 100% coverage thresholds |
+| [`@gregoiref/commitlint-config`](configs/commitlint/) | Commitlint config with emoji support |
+| [`@gregoiref/cz-config`](configs/cz/) | cz-git config with 12 emoji types |
 
 ---
 
-## Packages publiables
+## Why not just use X?
 
-### Configs partagées
-
-| Package | Statut | Description |
-|---|---|---|
-| `@gregoiref/tsconfig` | `[ prêt ]` | Configs TypeScript strictes — base, node, dom, astro, nuxt |
-| `@gregoiref/biome-config` | `[ prêt ]` | Config Biome lint + format pour projets TypeScript |
-| `@gregoiref/vitest-config` | `[ prêt ]` | Config Vitest avec seuil 90% — base (node) et dom |
-| `@gregoiref/commitlint-config` | `[ publié ]` | Config commitlint avec support emoji |
-| `@gregoiref/cz-config` | `[ publié ]` | Config cz-git avec 12 types emoji |
-
-### Librairies utilitaires
-
-| Package | Statut | Description |
-|---|---|---|
-| `@gregoiref/result` | `[ prêt ]` | Pattern `Result<T, E>` zero-dep — 100% coverage |
-| `@gregoiref/ts-utils` | `[ prêt ]` | Génériques TypeScript avancés zero-dep — 100% coverage |
-| `@gregoiref/env-validator` | `[ prêt ]` | Validation env type-safe sans Zod zero-dep — 99% coverage |
-| `@gregoiref/http-client` | `[ prêt ]` | fetch wrapper typé, interceptors, timeout zero-dep — 96% coverage |
-| `@gregoiref/logger` | `[ prêt ]` | Logger structuré JSON, transports pluggables zero-dep — 100% coverage |
-| `@gregoiref/date` | `[ prêt ]` | Helpers date sans dépendance (format, diff, add, clamp) — 100% coverage |
-| `@gregoiref/design-tokens` | `[ planifié ]` | Tokens CSS + TS + Tailwind |
+| Alternative | Why this instead |
+|---|---|
+| `axios` | Wraps `fetch` with a 5 kB runtime dep; `@gregoiref/http-client` does the same with zero extra bytes |
+| `zod` | Brings 15 kB for runtime validation; `@gregoiref/env-validator` covers the env-only use case at zero cost |
+| `neverthrow` | A fine library — this exists to stay in the monorepo and use no external deps |
+| `date-fns` | Comprehensive but heavy; `@gregoiref/date` covers the 20% of operations that handle 80% of cases |
 
 ---
 
-## Démarrage rapide
+## Installation
+
+Packages are published to **GitHub Packages** under the `@gregoiref` scope. Add the registry to your `.npmrc`:
+
+```ini
+@gregoiref:registry=https://npm.pkg.github.com
+```
+
+Then install any package:
+
+```bash
+pnpm add @gregoiref/result
+pnpm add @gregoiref/ts-utils
+pnpm add @gregoiref/http-client
+```
+
+---
+
+## Development
 
 ```bash
 git clone https://github.com/GregoireF/utils.git
 cd utils
 pnpm install
 
-# Lint + typecheck + tests sur tous les packages
+# Lint + typecheck + test across all packages
 pnpm turbo run check
 
-# Builder tous les packages
+# Build all packages
 pnpm turbo run build
-```
 
----
+# Run tests with coverage
+pnpm turbo run test
 
-## Convention de commits
-
-Les commits suivent [Conventional Commits](https://www.conventionalcommits.org/) avec emoji via la CLI guidée :
-
-```bash
+# Interactive guided commit (Conventional Commits + emoji)
 pnpm commit
 ```
 
-Format : `✨ feat(ts-utils): add pick and omit helpers`
+---
 
-Les configs commitlint et cz-git sont publiées et réutilisables dans tes propres projets :
+## Stack
 
-```bash
-pnpm add -D @gregoiref/commitlint-config @gregoiref/cz-config
-```
-
-```js
-// commitlint.config.js
-export default { extends: ['@gregoiref/commitlint-config'] }
-
-// .czrc.cjs
-const base = require('@gregoiref/cz-config')
-module.exports = { ...base, scopes: [/* tes scopes */] }
-```
+| Tool | Role |
+|---|---|
+| `pnpm` workspaces | Package manager — hoisted deps, workspace protocol |
+| Turborepo | Task orchestration with remote cache and `dependsOn` graph |
+| TypeScript | Strictest compiler flags (`exactOptionalPropertyTypes`, `noUncheckedIndexedAccess`) |
+| Biome | Unified lint + format — replaces ESLint + Prettier |
+| Vitest | Unit tests with v8 coverage, 100% threshold enforced |
+| Changesets | Per-package semver versioning + automatic CHANGELOG |
+| Renovate | Automated dependency updates with SHA pinning |
+| CodeQL | Static security analysis (`security-extended` query suite) |
+| OSSF Scorecard | Open-source security posture scoring |
 
 ---
 
-## Contribuer
+## Contributing
 
-Voir [CONTRIBUTING.md](./CONTRIBUTING.md) — les PRs sont bienvenues, mais ouvre d'abord une issue.
-
-Pour les vulnérabilités de sécurité, voir [SECURITY.md](.github/SECURITY.md).
+See [CONTRIBUTING.md](./CONTRIBUTING.md). Open an issue before writing significant code.  
+For security vulnerabilities, see [SECURITY.md](.github/SECURITY.md) — do not open a public issue.
 
 ---
 
-## Auteur
+## Author
 
 [@GregoireF](https://github.com/GregoireF)
 
 ---
 
-## Licence
+## License
 
-MIT
+[MIT](./LICENSE)

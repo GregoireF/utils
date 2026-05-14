@@ -6,8 +6,7 @@ on:
   pull_request:
     branches: [main]
 
-permissions:
-  contents: read
+permissions: read-all
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -15,17 +14,19 @@ concurrency:
 
 jobs:
   ci:
-    name: Lint · Typecheck · Test
+    name: Audit · Build · Lint · Typecheck · Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 22
           cache: pnpm
@@ -36,12 +37,56 @@ jobs:
       - name: Security audit
         run: pnpm audit --audit-level=moderate
 
+      - name: Build
+        run: pnpm turbo run build
+
       - name: Lint · Typecheck · Test
         run: pnpm turbo run lint typecheck test
 
-      - name: Upload coverage
-        uses: codecov/codecov-action@v5
+      - name: Upload coverage (result)
+        uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24 # v5.4.3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./packages/*/coverage/coverage-summary.json
+          files: ./packages/result/coverage/coverage-summary.json
+          flags: result
+          fail_ci_if_error: false
+
+      - name: Upload coverage (http-client)
+        uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24 # v5.4.3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./packages/http-client/coverage/coverage-summary.json
+          flags: http-client
+          fail_ci_if_error: false
+
+      - name: Upload coverage (ts-utils)
+        uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24 # v5.4.3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./packages/ts-utils/coverage/coverage-summary.json
+          flags: ts-utils
+          fail_ci_if_error: false
+
+      - name: Upload coverage (env-validator)
+        uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24 # v5.4.3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./packages/env-validator/coverage/coverage-summary.json
+          flags: env-validator
+          fail_ci_if_error: false
+
+      - name: Upload coverage (logger)
+        uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24 # v5.4.3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./packages/logger/coverage/coverage-summary.json
+          flags: logger
+          fail_ci_if_error: false
+
+      - name: Upload coverage (date)
+        uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24 # v5.4.3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./packages/date/coverage/coverage-summary.json
+          flags: date
           fail_ci_if_error: false

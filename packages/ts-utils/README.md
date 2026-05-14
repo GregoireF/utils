@@ -1,9 +1,10 @@
 # @gregoiref/ts-utils
 
-![npm version](https://img.shields.io/npm/v/@gregoiref/ts-utils)
-![license](https://img.shields.io/npm/l/@gregoiref/ts-utils)
-![zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)
-![coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
+[![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Fts-utils%40*&label=version&color=blue)](https://github.com/GregoireF/utils/tags)
+[![CI](https://github.com/GregoireF/utils/actions/workflows/ci.yml/badge.svg)](https://github.com/GregoireF/utils/actions/workflows/ci.yml)
+[![coverage](https://codecov.io/gh/GregoireF/utils/graph/badge.svg?flag=ts-utils)](https://codecov.io/gh/GregoireF/utils)
+[![license](https://img.shields.io/badge/license-MIT-blue)](https://github.com/GregoireF/utils/blob/main/LICENSE)
+[![zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)](https://github.com/GregoireF/utils/tree/main/packages/ts-utils)
 
 Typed TypeScript utility functions — `pick`, `omit`, `groupBy`, `deepMerge`, `memoize`, and more — zero dependencies.
 
@@ -58,9 +59,15 @@ pnpm add @gregoiref/ts-utils
 ## Usage
 
 ```ts
+// Full barrel import
 import { pick, omit, deepMerge, groupBy, chunk, unique, uniqueBy } from '@gregoiref/ts-utils'
 import { debounce, sleep, memoize } from '@gregoiref/ts-utils'
 import type { Nullable, DeepPartial, Prettify } from '@gregoiref/ts-utils'
+
+// Sub-path imports for smaller bundles
+import { pick, omit, deepMerge } from '@gregoiref/ts-utils/object'
+import { groupBy, chunk, unique, uniqueBy } from '@gregoiref/ts-utils/array'
+import { debounce, sleep, memoize } from '@gregoiref/ts-utils/function'
 
 // ── Objects ─────────────────────────────────────────────────────────────────
 const user = { id: 1, name: 'Alice', role: 'admin' }
