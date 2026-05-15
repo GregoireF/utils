@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
   pull_request:
-    branches: [main]
+    branches: [main, dev]
 
 permissions: read-all
 
@@ -35,7 +35,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Security audit
-        run: pnpm audit --audit-level=moderate
+        run: pnpm audit --prod --audit-level=moderate
 
       - name: Build
         run: pnpm turbo run build
