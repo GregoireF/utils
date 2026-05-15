@@ -2,7 +2,12 @@
   "name": "@gregoiref/vitest-config",
   "version": "1.0.0",
   "description": "Shared Vitest configuration with v8 coverage thresholds — base (node) and dom — @GregoireF",
-  "keywords": ["vitest", "testing", "configuration", "coverage"],
+  "keywords": [
+    "vitest",
+    "testing",
+    "configuration",
+    "coverage"
+  ],
   "homepage": "https://github.com/GregoireF/utils/tree/main/configs/vitest",
   "repository": {
     "type": "git",
@@ -24,10 +29,17 @@
       "types": "./dom.d.ts"
     }
   },
-  "files": ["*.js", "*.d.ts"],
+  "files": [
+    "*.js",
+    "*.d.ts"
+  ],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
     "access": "public"
+  },
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=9"
   },
   "peerDependencies": {
     "vitest": ">=2.0.0"
