@@ -4,6 +4,12 @@
   "description": "Type-safe Result<T, E> pattern for TypeScript — zero dependencies",
   "keywords": ["typescript", "result", "error-handling", "functional", "zero-dependencies"],
   "homepage": "https://github.com/GregoireF/utils/tree/main/packages/result",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GregoireF/utils.git",
+    "directory": "packages/result"
+  },
+  "bugs": { "url": "https://github.com/GregoireF/utils/issues" },
   "license": "MIT",
   "type": "module",
   "exports": {

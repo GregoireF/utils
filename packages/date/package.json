@@ -4,6 +4,12 @@
   "description": "Lightweight date utilities for TypeScript — format, parse, diff, add — zero dependencies",
   "keywords": ["typescript", "date", "format", "parse", "zero-dependencies"],
   "homepage": "https://github.com/GregoireF/utils/tree/main/packages/date",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GregoireF/utils.git",
+    "directory": "packages/date"
+  },
+  "bugs": { "url": "https://github.com/GregoireF/utils/issues" },
   "license": "MIT",
   "type": "module",
   "exports": {

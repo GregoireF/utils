@@ -1,6 +1,7 @@
 name: Auto-approve
 
 # Approves PRs targeting main after CI passes.
+# Also auto-merges Renovate dependency-update PRs.
 # Enables Code-Review Scorecard check for a solo-dev workflow.
 on:
   workflow_run:
@@ -9,6 +10,7 @@ on:
 
 permissions:
   pull-requests: write
+  contents: write
 
 jobs:
   approve:
@@ -17,15 +19,25 @@ jobs:
       github.event.workflow_run.event == 'pull_request' &&
       github.event.workflow_run.conclusion == 'success'
     steps:
-      - name: Approve PR
+      - name: Approve and auto-merge if Renovate
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           PR=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/${{ github.event.workflow_run.id }}" \
             --jq '.pull_requests[0].number // empty')
-          if [ -n "$PR" ]; then
-            gh pr review "$PR" \
+          if [ -z "$PR" ]; then exit 0; fi
+
+          AUTHOR=$(gh pr view "$PR" --repo "$GITHUB_REPOSITORY" --json author --jq '.author.login')
+
+          gh pr review "$PR" \
+            --repo "$GITHUB_REPOSITORY" \
+            --approve \
+            --body "CI passed — auto-approved."
+
+          if [ "$AUTHOR" = "renovate[bot]" ]; then
+            gh pr merge "$PR" \
               --repo "$GITHUB_REPOSITORY" \
-              --approve \
-              --body "CI passed — auto-approved."
+              --merge \
+              --auto \
+              --subject "chore(deps): merge Renovate update (#${PR})"
           fi
