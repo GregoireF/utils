@@ -18,6 +18,7 @@ jobs:
       contents: write
       pull-requests: write
       packages: write
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -44,7 +45,7 @@ jobs:
       - name: Create version PR or publish
         uses: changesets/action@63a615b9cd06ba9a3e6d13796c7fbcb080a60a0b # v1.8.0
         with:
-          publish: pnpm changeset publish
+          publish: pnpm changeset publish --provenance
           version: pnpm changeset version
           commit: "chore(release): version packages"
           title: "chore(release): version packages"
