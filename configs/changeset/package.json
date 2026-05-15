@@ -1,6 +1,6 @@
 {
   "name": "@gregoiref/changeset-config",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Shared Changesets configuration factory for TypeScript monorepos — @GregoireF",
   "keywords": ["changesets", "release", "versioning", "monorepo", "configuration"],
   "homepage": "https://github.com/GregoireF/utils/tree/main/configs/changeset",
