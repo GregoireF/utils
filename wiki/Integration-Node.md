@@ -1,8 +1,8 @@
-# Intégration Node.js / Hono
+# Integration: Node.js / Hono
 
-Bootstrap complet d'une API Node.js avec Hono. Hono est un framework HTTP léger (~14 kB) conçu pour être isomorphe (Node.js, Cloudflare Workers, Deno, Bun) — il s'appuie sur la Fetch API standard, ce qui le rend directement compatible avec `@gregoiref/http-client`.
+Full bootstrap of a Node.js API with Hono. Hono is a lightweight HTTP framework (~14 kB) designed to be isomorphic (Node.js, Cloudflare Workers, Deno, Bun) — it's built on the standard Fetch API, making it directly compatible with `@gregoiref/http-client`.
 
-> Sources : [Getting Started — Hono](https://hono.dev/docs/getting-started/basic), [Cloudflare Workers — Hono](https://hono.dev/docs/getting-started/cloudflare-workers), [HTTPException — Hono](https://hono.dev/docs/api/exception), [Middleware — Hono](https://hono.dev/docs/concepts/middleware)
+> Sources: [Getting Started — Hono](https://hono.dev/docs/getting-started/basic), [Cloudflare Workers — Hono](https://hono.dev/docs/getting-started/cloudflare-workers), [HTTPException — Hono](https://hono.dev/docs/api/exception), [Middleware — Hono](https://hono.dev/docs/concepts/middleware)
 
 ---
 
@@ -20,9 +20,9 @@ pnpm add @gregoiref/env-validator @gregoiref/http-client @gregoiref/logger @greg
 
 ---
 
-## Validation de l'environnement au démarrage
+## Environment validation at startup
 
-Valider `process.env` avant d'initialiser l'app garantit un crash explicite au démarrage plutôt qu'une erreur silencieuse à l'exécution.
+Validating `process.env` before initialising the app guarantees an explicit crash at startup rather than a silent runtime error.
 
 ```typescript
 // src/env.ts
@@ -39,11 +39,11 @@ export const env = v.validate({
 })
 ```
 
-Si une variable est manquante ou invalide, `validate()` throw immédiatement avec toutes les erreurs collectées. Le processus s'arrête avant que Hono ne démarre.
+If a variable is missing or invalid, `validate()` throws immediately with all errors collected. The process stops before Hono starts.
 
 ---
 
-## Logger et middleware de contexte de requête
+## Logger and request context middleware
 
 ```typescript
 // src/logger.ts
@@ -53,7 +53,7 @@ import { env } from './env'
 export const logger = createLogger({ level: env.LOG_LEVEL })
 ```
 
-Hono supporte un middleware en chaîne ([doc](https://hono.dev/docs/concepts/middleware)). Un middleware de logging injecte un child logger dans le contexte de chaque requête :
+Hono supports chained middleware ([docs](https://hono.dev/docs/concepts/middleware)). A logging middleware injects a child logger into each request context:
 
 ```typescript
 // src/middleware/logger.ts
@@ -82,7 +82,7 @@ export const requestLogger: MiddlewareHandler = async (c, next) => {
 
 ---
 
-## Bootstrap complet
+## Full bootstrap
 
 ```typescript
 // src/app.ts
@@ -94,12 +94,12 @@ import { requestLogger } from './middleware/logger'
 import { logger } from './logger'
 import { usersRouter } from './routes/users'
 
-// Variables d'env validées à l'import — process s'arrête ici si invalide
+// Env validated at import time — process stops here if invalid
 logger.info('Starting server', { port: env.PORT, nodeEnv: env.NODE_ENV })
 
 export const app = new Hono()
 
-// Middleware globaux
+// Global middleware
 app.use(cors())
 app.use(requestLogger)
 
@@ -109,7 +109,7 @@ app.route('/api/users', usersRouter)
 // Healthcheck
 app.get('/health', (c) => c.json({ status: 'ok', ts: new Date().toISOString() }))
 
-// Erreur globale
+// Global error handler
 app.onError((err, c) => {
   const log = c.get('log') ?? logger
 
@@ -139,7 +139,7 @@ serve({ fetch: app.fetch, port: env.PORT }, () => {
 
 ---
 
-## Router avec Result
+## Router with Result pattern
 
 ```typescript
 // src/routes/users.ts
@@ -196,7 +196,7 @@ usersRouter.post('/', async (c) => {
 
 ---
 
-## Service HTTP sortant
+## Outbound HTTP service
 
 ```typescript
 // src/services/user.ts
@@ -225,9 +225,9 @@ export const userService = {
 
 ---
 
-## Typage fort de `c.env` pour Cloudflare Workers
+## Strong typing for `c.env` on Cloudflare Workers
 
-Sur Cloudflare Workers, les variables d'env passent par `c.env` et non `process.env` ([doc](https://hono.dev/docs/getting-started/cloudflare-workers)). Hono supporte le typage via generics :
+On Cloudflare Workers, env variables come through `c.env` instead of `process.env` ([docs](https://hono.dev/docs/getting-started/cloudflare-workers)). Hono supports typing via generics:
 
 ```typescript
 // src/types.ts
@@ -248,7 +248,7 @@ import type { Bindings, Variables } from './types'
 export const app = new Hono<{ Bindings: Bindings; Variables: Variables }>()
 
 app.get('/api/config', (c) => {
-  // c.env.API_SECRET est typé string — pas de cast nécessaire
+  // c.env.API_SECRET is typed string — no cast needed
   const secret = c.env.API_SECRET
   return c.json({ ok: true })
 })
@@ -256,8 +256,8 @@ app.get('/api/config', (c) => {
 
 ---
 
-## Notes Hono spécifiques
+## Hono-specific notes
 
-- `c.set()` / `c.get()` pour partager des données entre middlewares (contexte de requête typé via le generic `Variables`).
-- `app.onError()` est le seul endroit où les `HTTPException` non catchées atterrissent — à définir en dernier, après toutes les routes.
-- Hono ne gère pas `AbortSignal` de façon native pour les timeouts serveur — le timeout de `@gregoiref/http-client` couvre les appels sortants, pas le timeout d'entrée (à gérer avec `AbortController` si nécessaire).
+- `c.set()` / `c.get()` share data between middlewares (request-scoped context typed via the `Variables` generic).
+- `app.onError()` is the only place unhandled `HTTPException` errors land — define it last, after all routes.
+- Hono does not handle `AbortSignal` natively for server-side timeouts. The `@gregoiref/http-client` timeout covers outbound calls, not the incoming request timeout (handle that with `AbortController` if needed).

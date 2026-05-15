@@ -1,8 +1,8 @@
-# Intégration Nuxt 3
+# Integration: Nuxt 3
 
-Patterns d'utilisation des packages `@gregoiref/*` dans un projet Nuxt 3. Les exemples ciblent principalement les server routes (`server/api/`) et les composables.
+Patterns for using `@gregoiref/*` packages in a Nuxt 3 project. Examples focus on server routes (`server/api/`) and composables.
 
-> Sources : [Server Routes — Nuxt Docs](https://nuxt.com/docs/guide/directory-structure/server), [useRuntimeConfig — Nuxt Docs](https://nuxt.com/docs/api/composables/use-runtime-config), [Data Fetching — Nuxt Docs](https://nuxt.com/docs/getting-started/data-fetching), [createError — Nuxt Docs](https://nuxt.com/docs/api/utils/create-error)
+> Sources: [Server Routes — Nuxt Docs](https://nuxt.com/docs/guide/directory-structure/server), [useRuntimeConfig — Nuxt Docs](https://nuxt.com/docs/api/composables/use-runtime-config), [Data Fetching — Nuxt Docs](https://nuxt.com/docs/getting-started/data-fetching), [createError — Nuxt Docs](https://nuxt.com/docs/api/utils/create-error)
 
 ---
 
@@ -19,9 +19,9 @@ pnpm add @gregoiref/env-validator @gregoiref/http-client @gregoiref/logger @greg
 
 ---
 
-## Validation des variables d'environnement
+## Environment validation
 
-Nuxt 3 expose les variables d'env via `useRuntimeConfig()` ([doc officielle](https://nuxt.com/docs/api/composables/use-runtime-config)). Les variables privées (server-only) sont sous la clé racine, les publiques sous `public`.
+Nuxt 3 exposes env variables via `useRuntimeConfig()` ([official docs](https://nuxt.com/docs/api/composables/use-runtime-config)). Private (server-only) variables live under the root key; public variables under `public`.
 
 ```typescript
 // nuxt.config.ts
@@ -31,7 +31,7 @@ export default defineNuxtConfig({
     databaseUrl: process.env.DATABASE_URL,
     apiSecret:   process.env.API_SECRET,
 
-    // Accessible client + serveur
+    // Accessible on client and server
     public: {
       apiBase: process.env.NUXT_PUBLIC_API_BASE ?? '/api',
     },
@@ -39,7 +39,7 @@ export default defineNuxtConfig({
 })
 ```
 
-Valider la config au démarrage du serveur avec un plugin Nitro :
+Validate the config at server startup with a Nitro plugin:
 
 ```typescript
 // server/plugins/env.ts
@@ -48,7 +48,7 @@ import { createValidator } from '@gregoiref/env-validator'
 const v = createValidator()
 
 export default defineNitroPlugin(() => {
-  // Valide process.env directement — plus explicite que runtimeConfig pour le bootstrap
+  // Validate process.env directly — more explicit than runtimeConfig for bootstrap
   v.validate({
     DATABASE_URL: v.string().url(),
     API_SECRET:   v.string().min(32),
@@ -59,13 +59,13 @@ export default defineNitroPlugin(() => {
 })
 ```
 
-Nuxt execute les plugins Nitro au démarrage serveur — si `validate()` lève, le serveur ne démarre pas.
+Nuxt runs Nitro plugins at server startup — if `validate()` throws, the server does not start.
 
 ---
 
-## Server routes avec Result
+## Server routes with Result
 
-Nuxt 3 server routes utilisent `defineEventHandler` de H3. `@gregoiref/http-client` s'intègre directement : les deux s'appuient sur fetch natif.
+Nuxt 3 server routes use `defineEventHandler` from H3. `@gregoiref/http-client` integrates directly — both use native fetch.
 
 ```typescript
 // server/api/users/[id].get.ts
@@ -102,11 +102,11 @@ export default defineEventHandler(async (event) => {
 })
 ```
 
-Le pattern `isOk` + `createError` mappe proprement les `Result` de `http-client` vers les erreurs H3 que Nuxt sait sérialiser côté client.
+The `isOk` + `createError` pattern cleanly maps `Result` from `http-client` to H3 errors that Nuxt serialises automatically on the client side.
 
 ---
 
-## Logger structuré dans les server routes
+## Structured logger in server routes
 
 ```typescript
 // server/utils/logger.ts
@@ -130,7 +130,7 @@ export default defineEventHandler(async (event) => {
 
   log.info('Creating order', { userId: body.userId })
 
-  // ... logique métier
+  // ... business logic
 
   log.info('Order created', { orderId: newOrder.id })
   return newOrder
@@ -139,17 +139,17 @@ export default defineEventHandler(async (event) => {
 
 ---
 
-## $fetch vs useFetch vs useAsyncData
+## `$fetch` vs `useFetch` vs `useAsyncData`
 
-Nuxt propose trois patterns de fetching ([comparatif officiel](https://nuxt.com/docs/getting-started/data-fetching)) :
+Nuxt offers three fetching patterns ([official comparison](https://nuxt.com/docs/getting-started/data-fetching)):
 
-| Méthode | Quand l'utiliser |
+| Method | When to use |
 |---|---|
-| `$fetch` | Mutations (POST/PUT/DELETE) dans les event handlers, pas de hydration nécessaire |
-| `useFetch` | Fetching simple dans les composants, hydration SSR automatique |
-| `useAsyncData` | Logique async complexe, sources multiples, ou quand on veut appeler son propre service TypeScript |
+| `$fetch` | Mutations (POST/PUT/DELETE) in event handlers — no hydration needed |
+| `useFetch` | Simple fetching in components with automatic SSR hydration |
+| `useAsyncData` | Complex async logic, multiple sources, or when calling your own TypeScript service directly |
 
-**`useAsyncData` avec les packages `@gregoiref`** — c'est là que ça devient intéressant. Au lieu de `$fetch` vers une URL, on appelle directement le service :
+**`useAsyncData` with `@gregoiref` packages** — instead of `$fetch` to a URL, call the service directly:
 
 ```typescript
 // composables/useUser.ts
@@ -166,7 +166,7 @@ export function useUser(id: MaybeRef<number>) {
 
       if (isOk(result)) return result.value.data
 
-      // useAsyncData s'attend à une exception pour passer en état error
+      // useAsyncData expects a thrown exception to enter the error state
       throw new Error(result.error.message)
     },
     { watch: [() => unref(id)] }
@@ -184,8 +184,8 @@ const { data: user, pending, error } = useUser(Number(route.params.id))
 
 ---
 
-## Notes Nuxt 3 spécifiques
+## Nuxt 3-specific notes
 
-- `defineEventHandler` et les utilitaires H3 (`readBody`, `getRouterParam`, `createError`) sont auto-importés dans `server/` — pas besoin de les importer manuellement.
-- `useRuntimeConfig()` sans argument dans un composant retourne uniquement les variables `public`. Avec `event` dans une server route, il retourne aussi les variables privées.
-- Les server routes Nuxt tournent dans Nitro — elles partagent le même runtime que Node.js (fetch natif disponible à partir de Node 18), ce qui rend `@gregoiref/http-client` directement compatible.
+- `defineEventHandler` and H3 utilities (`readBody`, `getRouterParam`, `createError`) are auto-imported in `server/` — no manual imports needed.
+- `useRuntimeConfig()` without an argument in a component returns only `public` variables. With `event` in a server route, it also returns private variables.
+- Nuxt server routes run in Nitro — they share the same runtime as Node.js (native fetch available from Node 18), making `@gregoiref/http-client` directly compatible.

@@ -1,44 +1,62 @@
-# @GregoireF/utils — Wiki
+# @gregoiref/utils — Wiki
 
-Documentation complémentaire aux READMEs du repo. Les READMEs couvrent les APIs package par package ; ce wiki couvre le contexte, les décisions, et l'intégration dans des projets réels.
+Zero-dependency TypeScript utilities for Node.js, Cloudflare Workers, and modern JS runtimes.
+
+---
 
 ## Pages
 
-| Page | Contenu |
+| Page | Description |
 |---|---|
-| [Architecture](Architecture) | Décisions structurelles, philosophie zero-dep, stack, ce qui a été rejeté et pourquoi |
-| [Intégration Astro](Integration-Astro) | Patterns concrets dans des API routes et server endpoints Astro |
-| [Intégration Nuxt 3](Integration-Nuxt) | Patterns dans des server routes et composables Nuxt 3 |
-| [Intégration Node / Hono](Integration-Node) | Bootstrap complet d'une API Node.js avec Hono |
+| [Architecture](Architecture) | Monorepo decisions, tooling, security layers, philosophy |
+| [Workflow: Commits & Releases](Workflow-Commits) | Full commit → changeset → PR → publish workflow |
+| [Integration: Astro](Integration-Astro) | Patterns for Astro API routes |
+| [Integration: Nuxt 3](Integration-Nuxt) | Patterns for Nuxt 3 server routes |
+| [Integration: Node.js / Hono](Integration-Node) | Full Hono app bootstrap |
 
-## Références rapides
+---
 
-**Registry GitHub Packages**
+## Quick install
+
 ```ini
 # .npmrc
 @gregoiref:registry=https://npm.pkg.github.com
 ```
 
-**Install**
 ```bash
-pnpm add @gregoiref/result @gregoiref/http-client @gregoiref/logger
-pnpm add @gregoiref/env-validator @gregoiref/ts-utils @gregoiref/date
+pnpm add @gregoiref/result
+pnpm add @gregoiref/http-client
+pnpm add @gregoiref/logger
+pnpm add @gregoiref/env-validator
+pnpm add @gregoiref/ts-utils
+pnpm add @gregoiref/date
 ```
 
-**Packages publiés**
+---
 
-| Package | Rôle |
+## Packages
+
+| Package | Description |
 |---|---|
-| `@gregoiref/result` | `Result<T, E>` — gestion d'erreurs sans exceptions |
-| `@gregoiref/http-client` | Wrapper `fetch` typé, retourne `Result<T, E>` |
-| `@gregoiref/logger` | Logger structuré JSON avec `child(context)` |
-| `@gregoiref/env-validator` | Validation des variables d'environnement sans Zod |
-| `@gregoiref/ts-utils` | Utilitaires TypeScript — `groupBy`, `pick`, `deepMerge`, `memoize`… |
-| `@gregoiref/date` | Helpers date — `format`, `diff`, `add`, `clamp` sans `date-fns` |
+| [`@gregoiref/result`](https://github.com/GregoireF/utils/tree/main/packages/result) | Typed `Result<T, E>` — no-throw error handling |
+| [`@gregoiref/http-client`](https://github.com/GregoireF/utils/tree/main/packages/http-client) | Fetch wrapper returning `Result` — no try/catch |
+| [`@gregoiref/logger`](https://github.com/GregoireF/utils/tree/main/packages/logger) | Structured JSON logger with child context |
+| [`@gregoiref/env-validator`](https://github.com/GregoireF/utils/tree/main/packages/env-validator) | Runtime env validation with types — fail fast at startup |
+| [`@gregoiref/ts-utils`](https://github.com/GregoireF/utils/tree/main/packages/ts-utils) | General TypeScript utilities |
+| [`@gregoiref/date`](https://github.com/GregoireF/utils/tree/main/packages/date) | Lightweight date formatting and comparison |
 
-## Repo
+---
 
-- [Code source](https://github.com/GregoireF/utils)
-- [Getting started (cross-package examples)](https://github.com/GregoireF/utils/blob/main/docs/getting-started.md)
-- [Changelog](https://github.com/GregoireF/utils/blob/main/CHANGELOG.md)
-- [GitHub Releases](https://github.com/GregoireF/utils/releases)
+## Dev configs
+
+| Package | Description |
+|---|---|
+| [`@gregoiref/cz-config`](https://github.com/GregoireF/utils/tree/main/configs/cz) | Commitizen (cz-git) config with Gitmoji |
+| [`@gregoiref/commitlint-config`](https://github.com/GregoireF/utils/tree/main/configs/commitlint) | commitlint config — Conventional Commits + emoji |
+| [`@gregoiref/changeset-config`](https://github.com/GregoireF/utils/tree/main/configs/changeset) | Changesets factory + emoji changelog formatter |
+
+---
+
+## Source
+
+[github.com/GregoireF/utils](https://github.com/GregoireF/utils) — MIT license
