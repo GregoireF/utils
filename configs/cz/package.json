@@ -2,7 +2,12 @@
   "name": "@gregoiref/cz-config",
   "version": "1.0.0",
   "description": "Shared cz-git configuration with emoji — @GregoireF projects",
-  "keywords": ["commitizen", "cz-git", "emoji", "conventional-commits"],
+  "keywords": [
+    "commitizen",
+    "cz-git",
+    "emoji",
+    "conventional-commits"
+  ],
   "homepage": "https://github.com/GregoireF/utils/tree/main/configs/cz",
   "repository": {
     "type": "git",
@@ -17,10 +22,16 @@
   "exports": {
     ".": "./index.cjs"
   },
-  "files": ["index.cjs"],
+  "files": [
+    "index.cjs"
+  ],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
     "access": "public"
+  },
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=9"
   },
   "peerDependencies": {
     "cz-git": ">=1.9.0"

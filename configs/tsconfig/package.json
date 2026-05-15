@@ -2,7 +2,12 @@
   "name": "@gregoiref/tsconfig",
   "version": "1.0.0",
   "description": "Shared strict TypeScript configurations — base, node, dom, astro, nuxt — @GregoireF",
-  "keywords": ["typescript", "tsconfig", "configuration", "strict"],
+  "keywords": [
+    "typescript",
+    "tsconfig",
+    "configuration",
+    "strict"
+  ],
   "homepage": "https://github.com/GregoireF/utils/tree/main/configs/tsconfig",
   "repository": {
     "type": "git",
@@ -20,9 +25,16 @@
     "./astro": "./astro.json",
     "./nuxt": "./nuxt.json"
   },
-  "files": ["*.json", "!package.json"],
+  "files": [
+    "*.json",
+    "!package.json"
+  ],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
     "access": "public"
+  },
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=9"
   }
 }

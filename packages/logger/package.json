@@ -2,7 +2,12 @@
   "name": "@gregoiref/logger",
   "version": "1.0.0",
   "description": "Structured, typed logger with pluggable transports — zero dependencies",
-  "keywords": ["typescript", "logger", "structured-logging", "zero-dependencies"],
+  "keywords": [
+    "typescript",
+    "logger",
+    "structured-logging",
+    "zero-dependencies"
+  ],
   "homepage": "https://github.com/GregoireF/utils/tree/main/packages/logger",
   "repository": {
     "type": "git",
@@ -22,10 +27,17 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist", "!dist/**/*.test.*"],
+  "files": [
+    "dist",
+    "!dist/**/*.test.*"
+  ],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
     "access": "public"
+  },
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=9"
   },
   "scripts": {
     "build": "tsc --project tsconfig.build.json",

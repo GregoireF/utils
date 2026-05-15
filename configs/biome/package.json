@@ -2,7 +2,13 @@
   "name": "@gregoiref/biome-config",
   "version": "1.0.0",
   "description": "Shared Biome (lint + format) configuration for TypeScript projects — @GregoireF",
-  "keywords": ["biome", "linting", "formatting", "typescript", "configuration"],
+  "keywords": [
+    "biome",
+    "linting",
+    "formatting",
+    "typescript",
+    "configuration"
+  ],
   "homepage": "https://github.com/GregoireF/utils/tree/main/configs/biome",
   "repository": {
     "type": "git",
@@ -17,10 +23,16 @@
   "exports": {
     ".": "./biome.json"
   },
-  "files": ["biome.json"],
+  "files": [
+    "biome.json"
+  ],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
     "access": "public"
+  },
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=9"
   },
   "peerDependencies": {
     "@biomejs/biome": ">=1.9.0"

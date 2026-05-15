@@ -2,7 +2,13 @@
   "name": "@gregoiref/date",
   "version": "1.0.0",
   "description": "Lightweight date utilities for TypeScript — format, parse, diff, add — zero dependencies",
-  "keywords": ["typescript", "date", "format", "parse", "zero-dependencies"],
+  "keywords": [
+    "typescript",
+    "date",
+    "format",
+    "parse",
+    "zero-dependencies"
+  ],
   "homepage": "https://github.com/GregoireF/utils/tree/main/packages/date",
   "repository": {
     "type": "git",
@@ -22,10 +28,17 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist", "!dist/**/*.test.*"],
+  "files": [
+    "dist",
+    "!dist/**/*.test.*"
+  ],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
     "access": "public"
+  },
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=9"
   },
   "scripts": {
     "build": "tsc --project tsconfig.build.json",

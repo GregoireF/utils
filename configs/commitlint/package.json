@@ -2,7 +2,12 @@
   "name": "@gregoiref/commitlint-config",
   "version": "1.0.0",
   "description": "Shared commitlint configuration with emoji support — @GregoireF projects",
-  "keywords": ["commitlint", "conventional-commits", "emoji", "commitlint-config"],
+  "keywords": [
+    "commitlint",
+    "conventional-commits",
+    "emoji",
+    "commitlint-config"
+  ],
   "homepage": "https://github.com/GregoireF/utils/tree/main/configs/commitlint",
   "repository": {
     "type": "git",
@@ -17,10 +22,16 @@
   "exports": {
     ".": "./index.cjs"
   },
-  "files": ["index.cjs"],
+  "files": [
+    "index.cjs"
+  ],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
     "access": "public"
+  },
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=9"
   },
   "peerDependencies": {
     "@commitlint/cli": ">=19.0.0",
