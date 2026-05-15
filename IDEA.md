@@ -14,17 +14,17 @@
 | `[ idée ]` | Concept brut, pas encore évalué |
 | `[ validé ]` | Décision prise, pas encore démarré |
 | `[ en cours ]` | Développement actif |
-| `[ prêt ]` | Implémenté, testé, documenté — prêt pour publication npm |
-| `[ publié ]` | Disponible sur npm |
+| `[ prêt ]` | Implémenté, testé, documenté — prêt pour publication |
+| `[ publié ]` | Disponible sur GitHub Packages |
 | `[ écarté ]` | Raison documentée |
 
 ---
 
 ## Configs partagées
 
-Ces packages sont les fondations du monorepo. Tous sont désormais dans le scope `@gregoiref/` et publiables.
+Ces packages sont les fondations du monorepo. Tous sont dans le scope `@gregoiref/` et publiés sur GitHub Packages.
 
-### `@gregoiref/tsconfig` `[ prêt ]`
+### `@gregoiref/tsconfig` `[ publié ]`
 
 Config TypeScript stricte déclinée en plusieurs presets :
 
@@ -36,7 +36,7 @@ Config TypeScript stricte déclinée en plusieurs presets :
 
 ---
 
-### `@gregoiref/biome-config` `[ prêt ]`
+### `@gregoiref/biome-config` `[ publié ]`
 
 Config Biome centralisée, consommée par tous les packages via `"extends"`.
 
@@ -47,11 +47,11 @@ Config Biome centralisée, consommée par tous les packages via `"extends"`.
 
 ---
 
-### `@gregoiref/vitest-config` `[ prêt ]`
+### `@gregoiref/vitest-config` `[ publié ]`
 
-Preset Vitest partagé avec seuil de coverage enforced.
+Preset Vitest partagé avec seuil de coverage enforced à 100%.
 
-- `createBaseConfig()` — environment node, coverage v8 90% sur les 4 métriques
+- `createBaseConfig()` — environment node, coverage v8 100% sur les 4 métriques
 - `createDomConfig()` — même config mais jsdom
 
 ---
@@ -76,9 +76,18 @@ Config cz-git pour une CLI guidée de commits.
 
 ---
 
+### `@gregoiref/changeset-config` `[ publié ]`
+
+Factory de configuration Changesets pour monorepos TypeScript.
+
+- `createConfig(overrides?)` — génère un objet de config `.changeset/config.json` avec des valeurs par défaut adaptées aux monorepos TypeScript
+- Préconfigure `@changesets/changelog-github` pour des changelogs avec liens PR et noms contributeurs
+
+---
+
 ## Librairies utilitaires TypeScript
 
-### `@gregoiref/result` `[ prêt ]`
+### `@gregoiref/result` `[ publié ]`
 
 Pattern `Result<T, E>` inspiré de Rust — gestion d'erreurs sans exceptions.
 
@@ -86,13 +95,13 @@ Pattern `Result<T, E>` inspiré de Rust — gestion d'erreurs sans exceptions.
 - `map()`, `mapErr()`, `flatMap()` — transforms
 - `unwrap()`, `unwrapOr()`, `unwrapOrElse()` — extractors
 - `fromThrowable()`, `fromPromise()` — async adapters
-- 100% coverage, JSDoc exhaustif, README complet
+- 100% coverage, JSDoc exhaustif, README complet, fuzz target
 
 **Signal technique :** Maîtrise des patterns fonctionnels, discriminated unions, types génériques.
 
 ---
 
-### `@gregoiref/ts-utils` `[ prêt ]`
+### `@gregoiref/ts-utils` `[ publié ]`
 
 Helpers TypeScript génériques réutilisables, sans dépendances externes.
 
@@ -100,13 +109,14 @@ Helpers TypeScript génériques réutilisables, sans dépendances externes.
 - **Array** : `groupBy`, `chunk`, `unique`, `uniqueBy`
 - **Function** : `debounce`, `sleep`, `memoize`
 - **Types** : `Nullable<T>`, `DeepPartial<T>`, `DeepRequired<T>`, `Prettify<T>`, `ValueOf<T>`
-- 100% coverage, JSDoc exhaustif, README complet
+- Sub-path exports tree-shakables : `@gregoiref/ts-utils/array`, `/object`, `/function`
+- 100% coverage, JSDoc exhaustif, README complet, fuzz target
 
 **Signal technique :** Maîtrise des génériques TypeScript avancés, types utilitaires, strictMode maximal.
 
 ---
 
-### `@gregoiref/env-validator` `[ prêt ]`
+### `@gregoiref/env-validator` `[ publié ]`
 
 Validation des variables d'environnement type-safe sans Zod.
 
@@ -114,14 +124,14 @@ Validation des variables d'environnement type-safe sans Zod.
 - Chaînable : `.optional()`, `.default()`, `.url()`, `.min()`, `.max()`
 - Collecte toutes les erreurs avant de lancer (pas de fail-fast)
 - Inférence de type automatique sans cast
-- 99% coverage, JSDoc exhaustif, README complet
+- 100% coverage, JSDoc exhaustif, README complet, fuzz target
 
 **Signal technique :** Inférence TypeScript via littéraux de types génériques, pattern builder fluent.
 **Alternative connue :** `t3-env` (cité dans le README du package).
 
 ---
 
-### `@gregoiref/http-client` `[ prêt ]`
+### `@gregoiref/http-client` `[ publié ]`
 
 Wrapper autour de `fetch` natif, typé et configurable.
 
@@ -130,14 +140,15 @@ Wrapper autour de `fetch` natif, typé et configurable.
 - `HttpError` et `TimeoutError` typées
 - Intercepteurs request/response
 - `AbortSignal.any()` pour combiner timeout + signal externe
-- 96% coverage, JSDoc exhaustif, README complet
+- Retourne `Result<HttpResponse<T>, HttpError | TimeoutError>` — pas d'exceptions
+- 100% coverage, JSDoc exhaustif, README complet
 
 **Signal technique :** Fetch API avancée, AbortController, generics, patterns résilience.
 **Pourquoi pas Axios :** Démontrer qu'on peut construire soi-même ce que les devs importent aveuglément.
 
 ---
 
-### `@gregoiref/logger` `[ prêt ]`
+### `@gregoiref/logger` `[ publié ]`
 
 Logger structuré léger pour Node et edge runtimes.
 
@@ -151,7 +162,7 @@ Logger structuré léger pour Node et edge runtimes.
 
 ---
 
-### `@gregoiref/date` `[ prêt ]`
+### `@gregoiref/date` `[ publié ]`
 
 Helpers de manipulation de dates sans dépendance externe.
 
@@ -193,19 +204,20 @@ Tokens de design partagés entre les projets Astro, Nuxt et React.
 
 ---
 
-## Ordre de développement — état actuel
+## État actuel — tous les packages
 
-| # | Package | Statut |
-|---|---|---|
-| 1 | `@gregoiref/tsconfig` | `[ prêt ]` |
-| 2 | `@gregoiref/biome-config` | `[ prêt ]` |
-| 3 | `@gregoiref/vitest-config` | `[ prêt ]` |
-| 4 | `@gregoiref/commitlint-config` | `[ publié ]` |
-| 5 | `@gregoiref/cz-config` | `[ publié ]` |
-| 6 | `@gregoiref/result` | `[ prêt ]` |
-| 7 | `@gregoiref/ts-utils` | `[ prêt ]` |
-| 8 | `@gregoiref/env-validator` | `[ prêt ]` |
-| 9 | `@gregoiref/http-client` | `[ prêt ]` |
-| 10 | `@gregoiref/logger` | `[ prêt ]` |
-| 11 | `@gregoiref/date` | `[ prêt ]` |
-| 12 | `@gregoiref/design-tokens` | `[ validé ]` |
+| # | Package | Statut | Coverage | Fuzz |
+|---|---|---|---|---|
+| 1 | `@gregoiref/tsconfig` | `[ publié ]` | n/a | — |
+| 2 | `@gregoiref/biome-config` | `[ publié ]` | n/a | — |
+| 3 | `@gregoiref/vitest-config` | `[ publié ]` | n/a | — |
+| 4 | `@gregoiref/commitlint-config` | `[ publié ]` | n/a | — |
+| 5 | `@gregoiref/cz-config` | `[ publié ]` | n/a | — |
+| 6 | `@gregoiref/changeset-config` | `[ publié ]` | n/a | — |
+| 7 | `@gregoiref/result` | `[ publié ]` | 100% | ✅ |
+| 8 | `@gregoiref/ts-utils` | `[ publié ]` | 100% | ✅ |
+| 9 | `@gregoiref/env-validator` | `[ publié ]` | 100% | ✅ |
+| 10 | `@gregoiref/http-client` | `[ publié ]` | 100% | — |
+| 11 | `@gregoiref/logger` | `[ publié ]` | 100% | — |
+| 12 | `@gregoiref/date` | `[ publié ]` | 100% | — |
+| 13 | `@gregoiref/design-tokens` | `[ validé ]` | — | — |

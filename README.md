@@ -32,6 +32,7 @@ A TypeScript monorepo of zero-dependency utility libraries and shared configs, u
 | [`@gregoiref/vitest-config`](configs/vitest/) | Vitest setup with 100% coverage thresholds |
 | [`@gregoiref/commitlint-config`](configs/commitlint/) | Commitlint config with emoji support |
 | [`@gregoiref/cz-config`](configs/cz/) | cz-git config with 12 emoji types |
+| [`@gregoiref/changeset-config`](configs/changeset/) | Changesets config factory for TypeScript monorepos |
 
 ---
 
@@ -96,9 +97,12 @@ pnpm commit
 | Biome | Unified lint + format — replaces ESLint + Prettier |
 | Vitest | Unit tests with v8 coverage, 100% threshold enforced |
 | Changesets | Per-package semver versioning + automatic CHANGELOG |
-| Renovate | Automated dependency updates with SHA pinning |
+| Renovate | Automated dependency updates with SHA pinning + auto-merge |
 | CodeQL | Static security analysis (`security-extended` query suite) |
 | OSSF Scorecard | Open-source security posture scoring |
+| Jazzer.js | Coverage-guided fuzzing — weekly CI + 3 fuzz targets |
+| size-limit | Bundle size budget enforced on every PR |
+| Dependency Review | Blocks high-severity CVEs and GPL/AGPL deps on PRs |
 
 ---
 
@@ -106,6 +110,8 @@ pnpm commit
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md). Open an issue before writing significant code.  
 For security vulnerabilities, see [SECURITY.md](.github/SECURITY.md) — do not open a public issue.
+
+> **Canary releases** are published daily to GitHub Packages under the `canary` dist-tag (`1.0.0-canary.<date>.<sha>`). Install with `pnpm add @gregoiref/result@canary`.
 
 ---
 
