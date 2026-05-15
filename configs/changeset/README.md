@@ -7,13 +7,17 @@
 
 Shared [Changesets](https://github.com/changesets/changesets) configuration factory for TypeScript monorepos.
 
-> Requires GitHub Packages — add `@gregoiref:registry=https://npm.pkg.github.com` to your `.npmrc`.
+## Why
 
-## Install
+Changesets' default config leaves `changelog` as a plain string with no PR links, and `access` unset (which breaks publish for scoped packages). Copying `.changeset/config.json` by hand across repos drifts over time. This factory provides a single opinionated baseline — `@changesets/changelog-github` for human-readable changelogs with PR links and contributor names, `access: "public"`, and sensible dependency update settings — overridable per project.
 
-```sh
+## Installation
+
+```bash
 pnpm add -D @gregoiref/changeset-config
 ```
+
+> Requires GitHub Packages — add `@gregoiref:registry=https://npm.pkg.github.com` to your `.npmrc`.
 
 ## Usage
 
@@ -39,7 +43,7 @@ node scripts/init-changesets.mjs
 
 | Key | Default |
 |---|---|
-| `changelog` | `@changesets/cli/changelog` |
+| `changelog` | `["@changesets/changelog-github", { "repo": "owner/repo" }]` |
 | `commit` | `false` |
 | `access` | `"public"` |
 | `baseBranch` | `"main"` |
@@ -47,3 +51,9 @@ node scripts/init-changesets.mjs
 | `ignore` | `[]` |
 
 All defaults can be overridden by passing an object to `createConfig`.
+
+## Limitations
+
+- `@changesets/changelog-github` requires a `GITHUB_TOKEN` (or `GITHUB_TOKEN` secret in CI) with `repo` read access to resolve PR links and contributor names.
+- The `repo` field in the changelog config must match the actual GitHub repo slug — pass it explicitly: `createConfig({ changelog: { repo: "owner/repo" } })`.
+- This package does not install Changesets — add `@changesets/cli` separately.
