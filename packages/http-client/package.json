@@ -1,6 +1,6 @@
 {
   "name": "@gregoiref/http-client",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "Typed fetch wrapper with interceptors, timeout, and Result<T, E> error handling",
   "keywords": ["typescript", "fetch", "http", "client", "result"],
   "homepage": "https://github.com/GregoireF/utils/tree/main/packages/http-client",

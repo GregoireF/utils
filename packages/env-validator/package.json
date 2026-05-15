@@ -1,6 +1,6 @@
 {
   "name": "@gregoiref/env-validator",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "Type-safe environment variable validation without Zod — zero dependencies",
   "keywords": ["typescript", "env", "environment", "validation", "type-safe", "zero-dependencies"],
   "homepage": "https://github.com/GregoireF/utils/tree/main/packages/env-validator",

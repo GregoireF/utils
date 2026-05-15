@@ -17,6 +17,7 @@
     "commit": "czg",
     "changeset": "changeset",
     "version": "changeset version",
+    "fuzz": "pnpm turbo run build && npx jazzer",
     "release": "turbo run build && changeset publish",
     "prepare": "husky"
   },
@@ -29,6 +30,7 @@
     ]
   },
   "devDependencies": {
+    "@jazzer.js/core": "^2.1.0",
     "@biomejs/biome": "^1.9.4",
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",

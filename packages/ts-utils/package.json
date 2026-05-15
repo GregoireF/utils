@@ -1,6 +1,6 @@
 {
   "name": "@gregoiref/ts-utils",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "Typed TypeScript utilities — pick, omit, groupBy, deepMerge and more — zero dependencies",
   "keywords": ["typescript", "utils", "helpers", "pick", "omit", "zero-dependencies"],
   "homepage": "https://github.com/GregoireF/utils/tree/main/packages/ts-utils",
