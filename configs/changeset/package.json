@@ -4,6 +4,12 @@
   "description": "Shared Changesets configuration factory for TypeScript monorepos — @GregoireF",
   "keywords": ["changesets", "release", "versioning", "monorepo", "configuration"],
   "homepage": "https://github.com/GregoireF/utils/tree/main/configs/changeset",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GregoireF/utils.git",
+    "directory": "configs/changeset"
+  },
+  "bugs": { "url": "https://github.com/GregoireF/utils/issues" },
   "license": "MIT",
   "type": "module",
   "exports": {

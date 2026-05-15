@@ -4,6 +4,12 @@
   "description": "Structured, typed logger with pluggable transports — zero dependencies",
   "keywords": ["typescript", "logger", "structured-logging", "zero-dependencies"],
   "homepage": "https://github.com/GregoireF/utils/tree/main/packages/logger",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GregoireF/utils.git",
+    "directory": "packages/logger"
+  },
+  "bugs": { "url": "https://github.com/GregoireF/utils/issues" },
   "license": "MIT",
   "type": "module",
   "exports": {

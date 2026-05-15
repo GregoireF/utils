@@ -4,6 +4,12 @@
   "description": "Typed fetch wrapper with interceptors, timeout, and Result<T, E> error handling",
   "keywords": ["typescript", "fetch", "http", "client", "result"],
   "homepage": "https://github.com/GregoireF/utils/tree/main/packages/http-client",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GregoireF/utils.git",
+    "directory": "packages/http-client"
+  },
+  "bugs": { "url": "https://github.com/GregoireF/utils/issues" },
   "license": "MIT",
   "type": "module",
   "exports": {

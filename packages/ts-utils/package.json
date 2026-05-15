@@ -4,6 +4,12 @@
   "description": "Typed TypeScript utilities — pick, omit, groupBy, deepMerge and more — zero dependencies",
   "keywords": ["typescript", "utils", "helpers", "pick", "omit", "zero-dependencies"],
   "homepage": "https://github.com/GregoireF/utils/tree/main/packages/ts-utils",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GregoireF/utils.git",
+    "directory": "packages/ts-utils"
+  },
+  "bugs": { "url": "https://github.com/GregoireF/utils/issues" },
   "license": "MIT",
   "type": "module",
   "exports": {

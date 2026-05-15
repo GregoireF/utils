@@ -1,0 +1,8 @@
+[
+  { "name": "result",        "path": "packages/result/dist/index.js",        "limit": "5 kB" },
+  { "name": "logger",        "path": "packages/logger/dist/index.js",        "limit": "5 kB" },
+  { "name": "ts-utils",      "path": "packages/ts-utils/dist/index.js",      "limit": "10 kB" },
+  { "name": "date",          "path": "packages/date/dist/index.js",          "limit": "10 kB" },
+  { "name": "env-validator", "path": "packages/env-validator/dist/index.js", "limit": "5 kB" },
+  { "name": "http-client",   "path": "packages/http-client/dist/index.js",   "limit": "10 kB" }
+]

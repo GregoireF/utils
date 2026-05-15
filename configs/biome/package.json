@@ -4,6 +4,12 @@
   "description": "Shared Biome (lint + format) configuration for TypeScript projects — @GregoireF",
   "keywords": ["biome", "linting", "formatting", "typescript", "configuration"],
   "homepage": "https://github.com/GregoireF/utils/tree/main/configs/biome",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GregoireF/utils.git",
+    "directory": "configs/biome"
+  },
+  "bugs": { "url": "https://github.com/GregoireF/utils/issues" },
   "license": "MIT",
   "type": "module",
   "exports": {
