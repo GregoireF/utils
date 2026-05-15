@@ -27,5 +27,5 @@ jobs:
             gh pr review "$PR" \
               --repo "$GITHUB_REPOSITORY" \
               --approve \
-              --body "CI passed â€” auto-approved."
+              --body "CI passed — auto-approved."
           fi

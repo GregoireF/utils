@@ -1,0 +1,17 @@
+{
+  "name": "@gregoiref/changeset-config",
+  "version": "0.0.0",
+  "description": "Shared Changesets configuration factory for TypeScript monorepos — @GregoireF",
+  "keywords": ["changesets", "release", "versioning", "monorepo", "configuration"],
+  "homepage": "https://github.com/GregoireF/utils/tree/main/configs/changeset",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  },
+  "files": ["index.js", "index.d.ts"],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  }
+}
