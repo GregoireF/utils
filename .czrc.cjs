@@ -5,29 +5,27 @@ const base = require('@gregoiref/cz-config')
 /** @type {import('cz-git').UserConfig} */
 module.exports = {
   ...base,
-  messages: {
-    ...base.messages,
-    type: 'Sélectionne le type de changement :',
-    scope: 'Quel package est concerné ? (optionnel)',
-    customScope: 'Quel package est concerné ?',
-    subject: 'Description courte et impérative :\n',
-    confirmCommit: 'Confirmer ce commit ?',
-  },
+  // Expose footer/issue linking for this monorepo
+  skipQuestions: [],
   scopes: [
-    { value: 'tsconfig', name: 'tsconfig:     @utils/tsconfig' },
-    { value: 'biome', name: 'biome:        @utils/biome' },
-    { value: 'vitest', name: 'vitest:       @utils/vitest' },
-    { value: 'commitlint', name: 'commitlint:   @gregoiref/commitlint-config' },
-    { value: 'cz', name: 'cz:           @gregoiref/cz-config' },
-    { value: 'ts-utils', name: 'ts-utils:     @gregoiref/ts-utils' },
-    { value: 'env-validator', name: 'env-validator: @gregoiref/env-validator' },
-    { value: 'http-client', name: 'http-client:  @gregoiref/http-client' },
-    { value: 'design-tokens', name: 'design-tokens: @gregoiref/design-tokens' },
-    { value: 'logger', name: 'logger:       @gregoiref/logger' },
-    { value: 'date', name: 'date:         @gregoiref/date' },
-    { value: 'result', name: 'result:       @gregoiref/result' },
-    { value: 'ci', name: 'ci:           GitHub Actions / workflows' },
-    { value: 'deps', name: 'deps:         Mise à jour de dépendances' },
-    { value: 'release', name: 'release:      Versioning / release' },
+    // Packages
+    { value: 'result',        name: 'result:         @gregoiref/result' },
+    { value: 'ts-utils',      name: 'ts-utils:       @gregoiref/ts-utils' },
+    { value: 'env-validator', name: 'env-validator:  @gregoiref/env-validator' },
+    { value: 'http-client',   name: 'http-client:    @gregoiref/http-client' },
+    { value: 'logger',        name: 'logger:         @gregoiref/logger' },
+    { value: 'date',          name: 'date:           @gregoiref/date' },
+    // Configs
+    { value: 'tsconfig',      name: 'tsconfig:       @gregoiref/tsconfig' },
+    { value: 'biome',         name: 'biome:          @gregoiref/biome-config' },
+    { value: 'vitest',        name: 'vitest:         @gregoiref/vitest-config' },
+    { value: 'commitlint',    name: 'commitlint:     @gregoiref/commitlint-config' },
+    { value: 'cz',            name: 'cz:             @gregoiref/cz-config' },
+    { value: 'changeset',     name: 'changeset:      @gregoiref/changeset-config' },
+    // Cross-cutting
+    { value: 'ci',            name: 'ci:             GitHub Actions / workflows' },
+    { value: 'deps',          name: 'deps:           Dependency updates' },
+    { value: 'docs',          name: 'docs:           Documentation (wiki, guides)' },
+    { value: 'release',       name: 'release:        Versioning / release process' },
   ],
 }

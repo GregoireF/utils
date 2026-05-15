@@ -1,0 +1,230 @@
+# Workflow: Commits & Releases
+
+The full flow from writing code to publishing a package version.
+
+> Tools: [cz-git](https://cz-git.qbb.app/), [commitlint](https://commitlint.js.org/), [Changesets](https://github.com/changesets/changesets), [Husky](https://typicode.github.io/husky/)
+
+---
+
+## Overview
+
+```
+code change
+    │
+    ▼
+pnpm commit          ← guided prompt (cz-git)
+    │
+    ▼
+commit-msg hook      ← commitlint validates format
+    │
+    ▼
+pnpm changeset       ← describe the user-facing impact
+    │
+    ▼
+git push + PR        ← CI runs on Node 22 and 24
+    │
+    ▼
+merge to main        ← Changesets bot opens "Version Packages" PR
+    │
+    ▼
+merge version PR     ← packages published to GitHub Packages
+```
+
+---
+
+## Step 1 — Commit
+
+Instead of `git commit -m "..."`, run:
+
+```bash
+pnpm commit
+```
+
+This opens the **cz-git** interactive prompt:
+
+```
+? Select the type of change:
+  ✨ feat      A new feature
+  🐛 fix       A bug fix
+  📝 docs      Documentation only
+  ♻️  refactor  Code restructure without fix or feat
+  ⚡️ perf      Performance improvement
+  🔒 security  Security fix or hardening
+  …
+
+? Which scope is affected? (optional)
+  result
+  http-client
+  logger
+  env-validator
+  …
+
+? Short, imperative description (max 50 chars):
+  add retry with exponential backoff
+
+? Longer description (optional):
+  |
+
+? BREAKING CHANGE description: (skip if none)
+  |
+
+? Related issues (optional):
+  close #42
+```
+
+**Result:**
+
+```
+✨ feat(http-client): add retry with exponential backoff
+
+close #42
+```
+
+---
+
+## Commit format reference
+
+```
+[emoji] type(scope)[!]: subject     ← max 100 chars total
+                                    ← blank line
+Optional body, max 100 chars/line.  ← explain WHY, not what
+                                    ← blank line
+BREAKING CHANGE: migration guide    ← required when ! present
+close #42                           ← optional issue ref
+```
+
+### Types
+
+| Type | Emoji | Should trigger a changeset? |
+|---|---|---|
+| `feat` | ✨ | Yes — minor bump |
+| `fix` | 🐛 | Yes — patch bump |
+| `perf` | ⚡️ | Yes — patch bump |
+| `security` | 🔒 | Yes — patch bump |
+| `revert` | ⏪ | Yes — patch bump |
+| `docs` | 📝 | No |
+| `style` | 💄 | No |
+| `refactor` | ♻️ | No (unless API changes — then yes, major) |
+| `test` | ✅ | No |
+| `build` | 📦 | No |
+| `ci` | 👷 | No |
+| `chore` | 🔧 | No |
+| `wip` | 🚧 | No — and don't merge to main |
+
+### Breaking changes
+
+Use `!` after the type and fill in the `BREAKING CHANGE:` footer. This produces a **major version bump**.
+
+```
+✨ feat(http-client)!: change response shape
+
+BREAKING CHANGE: response.data renamed to response.value.
+Update: const { value } = await client.get(url)
+```
+
+---
+
+## Step 2 — Write a changeset
+
+After committing, describe the user-facing impact for packages that changed:
+
+```bash
+pnpm changeset
+```
+
+The CLI asks:
+1. **Which packages changed?** — space to select, enter to confirm
+2. **Bump type per package** — `major` / `minor` / `patch`
+3. **Summary** — one sentence, consumer perspective
+
+This creates `.changeset/<random-id>.md`:
+
+```markdown
+---
+"@gregoiref/http-client": minor
+---
+
+Add `retry` option to `createHttpClient`. Accepts `{ attempts: number, delay: number }`
+and retries on network errors and 5xx responses with exponential backoff.
+```
+
+Commit this file together with your code changes:
+
+```bash
+git add .changeset/
+pnpm commit   # type: chore, scope: changeset, subject: add changeset for http-client retry
+```
+
+---
+
+## Step 3 — PR and CI
+
+Push and open a PR. CI runs automatically on Node.js 22 and 24:
+
+- Lint (`pnpm lint`)
+- Type check (`pnpm typecheck`)
+- Tests with 100% coverage (`pnpm test`)
+- Build (`pnpm build`)
+- Bundle size budget (`pnpm exec size-limit`)
+- Security audit (`pnpm audit --audit-level=high`)
+- CodeQL static analysis
+- Dependency review (CVE scan on new deps)
+
+All checks must pass before merge.
+
+---
+
+## Step 4 — Version PR (automated)
+
+After your PR is merged to `main`, the **Changesets GitHub Action** detects pending `.changeset/*.md` files and opens (or updates) a **"Version Packages"** PR that:
+
+- Bumps `version` in each affected `package.json`
+- Appends formatted entries to each `CHANGELOG.md`
+- Removes the consumed `.changeset/*.md` files
+
+The CHANGELOG formatter (`@gregoiref/changeset-config/changelog`) prefixes entries with emojis:
+
+```markdown
+## 1.3.0
+
+### Minor Changes
+
+- ✨ Add `retry` option to `createHttpClient` with exponential backoff
+
+### Patch Changes
+
+- 🐛 Fix `TimeoutError` not being caught when `AbortSignal` fires early
+```
+
+---
+
+## Step 5 — Publish
+
+Merging the "Version Packages" PR triggers the release workflow, which publishes all bumped packages to GitHub Packages.
+
+No manual `pnpm changeset publish` needed in normal flow.
+
+---
+
+## commit-msg hook setup
+
+To enforce commit format locally, set up a `commit-msg` hook:
+
+```bash
+pnpm add -D husky
+pnpm exec husky init
+echo 'pnpm exec commitlint --edit "$1"' > .husky/commit-msg
+```
+
+The hook validates every `git commit` — whether written manually or generated by `pnpm commit`.
+
+---
+
+## Configs used
+
+| Config | Package | Role |
+|---|---|---|
+| cz-git prompt | [`@gregoiref/cz-config`](https://github.com/GregoireF/utils/tree/main/configs/cz) | Guides commit format |
+| commitlint rules | [`@gregoiref/commitlint-config`](https://github.com/GregoireF/utils/tree/main/configs/commitlint) | Validates commit format |
+| Changesets factory | [`@gregoiref/changeset-config`](https://github.com/GregoireF/utils/tree/main/configs/changeset) | `.changeset/config.json` baseline |
+| Changelog formatter | `@gregoiref/changeset-config/changelog` | Emoji CHANGELOG entries |

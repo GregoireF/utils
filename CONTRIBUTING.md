@@ -95,7 +95,27 @@ Use the interactive CLI to avoid mistakes:
 pnpm commit
 ```
 
-**Allowed types:** `feat` `fix` `docs` `style` `refactor` `perf` `test` `build` `ci` `chore` `revert` `wip`
+**Allowed types:**
+
+| Type | Emoji | Description | Triggers release |
+|---|---|---|---|
+| `feat` | ✨ | New user-facing feature | Minor |
+| `fix` | 🐛 | Bug fix | Patch |
+| `perf` | ⚡️ | Performance improvement | Patch |
+| `security` | 🔒 | Security fix or hardening | Patch |
+| `revert` | ⏪ | Revert a previous commit | Patch |
+| `docs` | 📝 | Documentation only | No |
+| `style` | 💄 | Formatting, no logic change | No |
+| `refactor` | ♻️ | Code restructure without new behaviour | No |
+| `test` | ✅ | Tests added or fixed | No |
+| `build` | 📦 | Build system / external deps | No |
+| `ci` | 👷 | GitHub Actions, scripts | No |
+| `chore` | 🔧 | Tooling, config, maintenance | No |
+| `wip` | 🚧 | Work in progress (do not merge) | No |
+
+"Triggers release" means you should also write a changeset. commitlint does not enforce this automatically.
+
+See the [commit & release workflow](https://github.com/GregoireF/utils/wiki/Workflow-Commits) for the complete picture.
 
 ---
 
@@ -155,9 +175,25 @@ Any change visible to package consumers (new API, bug fix, breaking change) requ
 pnpm changeset
 ```
 
-Follow the prompts to select affected packages, bump type (patch / minor / major), and write a one-line description. The generated file in `.changeset/` is committed alongside your code.
+Follow the prompts to select affected packages, bump type, and write a one-line description from the user's perspective. The generated `.changeset/<id>.md` file is committed alongside your code.
 
-Changes that do NOT require a changeset: documentation-only, test-only, internal refactors with no public API impact.
+### Bump type guide
+
+| Change | Bump |
+|---|---|
+| New exported function, option, or behavior | `minor` |
+| Bug fix, internal improvement | `patch` |
+| Removed export, changed signature, renamed option | `major` |
+
+When in doubt, use `patch`. Breaking changes must be `major` — and require a `BREAKING CHANGE:` footer in the commit.
+
+### Changeset summary tips
+
+- Write from the consumer's perspective: "Add `retry` option to `createHttpClient`" not "Implement retry logic in http-client"
+- One sentence is almost always enough
+- For breaking changes, describe the migration path in the summary
+
+Changes that do NOT require a changeset: `docs`, `style`, `refactor`, `test`, `build`, `ci`, `chore`.
 
 ---
 

@@ -3,57 +3,121 @@
 [![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Fchangeset-config%40*&label=version&color=blue)](https://github.com/GregoireF/utils/tags)
 [![CI](https://github.com/GregoireF/utils/actions/workflows/ci.yml/badge.svg)](https://github.com/GregoireF/utils/actions/workflows/ci.yml)
 [![license](https://img.shields.io/badge/license-MIT-blue)](https://github.com/GregoireF/utils/blob/main/LICENSE)
-[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-Shared [Changesets](https://github.com/changesets/changesets) configuration factory for TypeScript monorepos.
+Shared [Changesets](https://github.com/changesets/changesets) configuration factory and changelog formatter for TypeScript monorepos.
 
 ## Why
 
-Changesets' default config leaves `changelog` as a plain string with no PR links, and `access` unset (which breaks publish for scoped packages). Copying `.changeset/config.json` by hand across repos drifts over time. This factory provides a single opinionated baseline — `@changesets/changelog-github` for human-readable changelogs with PR links and contributor names, `access: "public"`, and sensible dependency update settings — overridable per project.
+Two problems solved in one package:
+
+1. **Config drift** — `.changeset/config.json` copied across repos drifts. A factory function keeps the baseline in one place, overridable per project.
+2. **CHANGELOG readability** — the default Changesets formatter outputs plain prose. The bundled changelog formatter adds emoji prefixes (🚀 major, ✨ minor, 🐛 patch) for instant visual scanning.
 
 ## Installation
 
 ```bash
-pnpm add -D @gregoiref/changeset-config
+pnpm add -D @gregoiref/changeset-config @changesets/cli
 ```
 
-> Requires GitHub Packages — add `@gregoiref:registry=https://npm.pkg.github.com` to your `.npmrc`.
+> Requires GitHub Packages. Add to `.npmrc`:
+> ```ini
+> @gregoiref:registry=https://npm.pkg.github.com
+> ```
 
-## Usage
+## Setup
 
-Generate `.changeset/config.json` via a one-time script:
+### 1. Generate `.changeset/config.json`
+
+Run once to create the config file:
 
 ```js
 // scripts/init-changesets.mjs
-import { createConfig } from '@gregoiref/changeset-config';
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { createConfig } from '@gregoiref/changeset-config'
+import { writeFileSync, mkdirSync } from 'node:fs'
 
-mkdirSync('.changeset', { recursive: true });
+mkdirSync('.changeset', { recursive: true })
 writeFileSync(
   '.changeset/config.json',
-  JSON.stringify(createConfig({ baseBranch: 'main' }), null, 2) + '\n'
-);
+  JSON.stringify(createConfig({ repo: 'owner/repo' }), null, 2) + '\n'
+)
 ```
 
-```sh
+```bash
 node scripts/init-changesets.mjs
 ```
 
-## Defaults
+Or write `.changeset/config.json` directly:
 
-| Key | Default |
-|---|---|
-| `changelog` | `["@changesets/changelog-github", { "repo": "owner/repo" }]` |
-| `commit` | `false` |
-| `access` | `"public"` |
-| `baseBranch` | `"main"` |
-| `updateInternalDependencies` | `"patch"` |
-| `ignore` | `[]` |
+```json
+{
+  "$schema": "https://unpkg.com/@changesets/config/schema.json",
+  "changelog": ["@gregoiref/changeset-config/changelog", {}],
+  "commit": false,
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": []
+}
+```
 
-All defaults can be overridden by passing an object to `createConfig`.
+### 2. Add Changesets workflow scripts
+
+```json
+{
+  "scripts": {
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "changeset publish"
+  }
+}
+```
+
+## Changelog formatter
+
+The `@gregoiref/changeset-config/changelog` export is a Changesets changelog formatter that prefixes each entry with an emoji based on the bump type:
+
+| Bump type | Emoji | Meaning |
+|---|---|---|
+| `major` | 🚀 | Breaking change |
+| `minor` | ✨ | New feature |
+| `patch` | 🐛 | Bug fix / internal |
+
+**Example CHANGELOG output:**
+
+```markdown
+## 1.2.0
+
+### Minor Changes
+
+- ✨ Add `retry` option to `createHttpClient` with exponential backoff
+
+### Patch Changes
+
+- 🐛 Fix `TimeoutError` not being caught when `AbortSignal` fires early
+- 📦 Updated dependencies:
+  - `@gregoiref/result@1.1.2`
+```
+
+## `createConfig` reference
+
+```ts
+createConfig(options?: {
+  repo?: string                          // GitHub slug — e.g. "owner/repo"
+  changelog?: string | [string, object]  // Override formatter
+  baseBranch?: string                    // Default: "main"
+  access?: "public" | "restricted"       // Default: "public"
+  updateInternalDependencies?: "minor" | "patch"  // Default: "patch"
+  ignore?: string[]                      // Packages to exclude from releases
+  fixed?: string[]                       // Packages always versioned together
+  linked?: string[]                      // Packages sharing a version range
+}): ChangesetsConfig
+```
+
+## Workflow
+
+See the [commit & release workflow](https://github.com/GregoireF/utils/wiki/Workflow-Commits) for the full picture: how commits feed into changesets, how changesets feed into CHANGELOG, and how the Changesets bot opens version PRs.
 
 ## Limitations
 
-- `@changesets/changelog-github` requires a `GITHUB_TOKEN` (or `GITHUB_TOKEN` secret in CI) with `repo` read access to resolve PR links and contributor names.
-- The `repo` field in the changelog config must match the actual GitHub repo slug — pass it explicitly: `createConfig({ changelog: { repo: "owner/repo" } })`.
-- This package does not install Changesets — add `@changesets/cli` separately.
+- The changelog formatter does not fetch PR links or contributor names (unlike `@changesets/changelog-github`). This avoids a `GITHUB_TOKEN` requirement and makes the formatter usable in any environment.
+- This package does not install `@changesets/cli` — add it separately.
