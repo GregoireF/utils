@@ -1,6 +1,6 @@
 {
   "name": "@gregoiref/vitest-config",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Shared Vitest configuration with v8 coverage thresholds — base (node) and dom — @GregoireF",
   "keywords": ["vitest", "testing", "configuration", "coverage"],
   "homepage": "https://github.com/GregoireF/utils/tree/main/configs/vitest",
@@ -9,7 +9,9 @@
     "url": "https://github.com/GregoireF/utils.git",
     "directory": "configs/vitest"
   },
-  "bugs": { "url": "https://github.com/GregoireF/utils/issues" },
+  "bugs": {
+    "url": "https://github.com/GregoireF/utils/issues"
+  },
   "license": "MIT",
   "type": "module",
   "exports": {

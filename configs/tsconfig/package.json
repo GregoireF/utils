@@ -1,6 +1,6 @@
 {
   "name": "@gregoiref/tsconfig",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Shared strict TypeScript configurations — base, node, dom, astro, nuxt — @GregoireF",
   "keywords": ["typescript", "tsconfig", "configuration", "strict"],
   "homepage": "https://github.com/GregoireF/utils/tree/main/configs/tsconfig",
@@ -9,7 +9,9 @@
     "url": "https://github.com/GregoireF/utils.git",
     "directory": "configs/tsconfig"
   },
-  "bugs": { "url": "https://github.com/GregoireF/utils/issues" },
+  "bugs": {
+    "url": "https://github.com/GregoireF/utils/issues"
+  },
   "license": "MIT",
   "exports": {
     "./base": "./base.json",
