@@ -2,9 +2,11 @@
 
 [![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Flogger%40*&label=version&color=blue)](https://github.com/GregoireF/utils/tags)
 [![CI](https://github.com/GregoireF/utils/actions/workflows/ci.yml/badge.svg)](https://github.com/GregoireF/utils/actions/workflows/ci.yml)
-[![coverage](https://codecov.io/gh/GregoireF/utils/graph/badge.svg?flag=logger)](https://codecov.io/gh/GregoireF/utils)
+[![coverage](https://img.shields.io/codecov/c/gh/GregoireF/utils?flag=logger&label=coverage&logo=codecov)](https://app.codecov.io/gh/GregoireF/utils/flags)
 [![license](https://img.shields.io/badge/license-MIT-blue)](https://github.com/GregoireF/utils/blob/main/LICENSE)
 [![zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)](https://github.com/GregoireF/utils/tree/main/packages/logger)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D22-brightgreen?logo=node.js&logoColor=white)](https://nodejs.org)
 
 Structured, typed logger with pluggable transports — zero dependencies.
 

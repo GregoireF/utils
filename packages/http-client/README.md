@@ -2,8 +2,10 @@
 
 [![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Fhttp-client%40*&label=version&color=blue)](https://github.com/GregoireF/utils/tags)
 [![CI](https://github.com/GregoireF/utils/actions/workflows/ci.yml/badge.svg)](https://github.com/GregoireF/utils/actions/workflows/ci.yml)
-[![coverage](https://codecov.io/gh/GregoireF/utils/graph/badge.svg?flag=http-client)](https://codecov.io/gh/GregoireF/utils)
+[![coverage](https://img.shields.io/codecov/c/gh/GregoireF/utils?flag=http-client&label=coverage&logo=codecov)](https://app.codecov.io/gh/GregoireF/utils/flags)
 [![license](https://img.shields.io/badge/license-MIT-blue)](https://github.com/GregoireF/utils/blob/main/LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/node-%3E%3D22-brightgreen?logo=node.js&logoColor=white)](https://nodejs.org)
 
 Typed `fetch` wrapper with interceptors, timeout, and `Result<T, E>` error handling.
 
