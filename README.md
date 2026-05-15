@@ -36,6 +36,31 @@ A TypeScript monorepo of zero-dependency utility libraries and shared configs, u
 
 ---
 
+## Combined usage
+
+The packages are designed to compose. A typical service layer uses three or four together:
+
+```typescript
+import { createHttpClient } from '@gregoiref/http-client'
+import { createLogger }     from '@gregoiref/logger'
+import { isOk }             from '@gregoiref/result'
+
+const logger = createLogger({ level: 'info', context: { service: 'users' } })
+const client = createHttpClient({ baseUrl: 'https://api.example.com', timeout: 5000 })
+
+const result = await client.get<User>('/users/42')
+
+if (isOk(result)) {
+  logger.info('User fetched', { name: result.value.data.name })
+} else {
+  logger.error('Fetch failed', { status: result.error.status })
+}
+```
+
+See **[docs/getting-started.md](docs/getting-started.md)** for five full patterns: HTTP services, env bootstrap, data pipelines, date formatting, and child loggers.
+
+---
+
 ## Why not just use X?
 
 | Alternative | Why this instead |
@@ -44,6 +69,17 @@ A TypeScript monorepo of zero-dependency utility libraries and shared configs, u
 | `zod` | Brings 15 kB for runtime validation; `@gregoiref/env-validator` covers the env-only use case at zero cost |
 | `neverthrow` | A fine library — this exists to stay in the monorepo and use no external deps |
 | `date-fns` | Comprehensive but heavy; `@gregoiref/date` covers the 20% of operations that handle 80% of cases |
+
+---
+
+## Documentation
+
+| Document | Description |
+|---|---|
+| [docs/getting-started.md](docs/getting-started.md) | Five cross-package usage patterns — HTTP services, env bootstrap, pipelines, dates, child loggers |
+| [CHANGELOG.md](CHANGELOG.md) | Cross-package release overview with links to individual changelogs |
+| [TRACKING.md](TRACKING.md) | Architecture decisions, phase history, and known risks |
+| [IDEA.md](IDEA.md) | Package backlog — validated, in-progress, and published status |
 
 ---
 

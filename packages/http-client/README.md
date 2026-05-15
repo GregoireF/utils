@@ -126,3 +126,9 @@ try {
 - No automatic retry logic — implement retries in a `requestInterceptor` or wrap calls externally.
 - Requires `AbortSignal.any` (Node ≥ 18.17, Chrome 116). Polyfill needed for older targets.
 - External `AbortSignal` cancellation propagates as a thrown exception, not as an `Err` — it falls outside the `HttpError | TimeoutError` error contract.
+
+## Related
+
+- [`@gregoiref/result`](../result/) — the `Result<T, E>` type returned by every method
+- [`@gregoiref/logger`](../logger/) — pair with child loggers for structured request tracing
+- [Getting started — Pattern 1](../../docs/getting-started.md#pattern-1--http-service-with-typed-error-handling) — full combined example
