@@ -79,3 +79,8 @@ const parsed = fromThrowable(() => JSON.parse(rawInput))
 - `ok()` and `err()` call `Object.freeze()` — the wrapped value itself is not deep-frozen.
 - `fromThrowable` and `fromPromise` always produce `Result<T, Error>`. If you need a richer error type, catch and map manually.
 - No `async` variants of `map` / `flatMap` — compose with `fromPromise` instead.
+
+## Related
+
+- [`@gregoiref/http-client`](../http-client/) — returns `Result<HttpResponse<T>, HttpError | TimeoutError>` on every request
+- [Getting started — Pattern 3](../../docs/getting-started.md#pattern-3--data-processing-pipeline) — combining `result` with `ts-utils` in a data pipeline
