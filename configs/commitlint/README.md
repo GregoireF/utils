@@ -3,6 +3,7 @@
 [![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Fcommitlint-config%40*&label=version&color=blue)](https://github.com/GregoireF/utils/tags)
 [![CI](https://github.com/GregoireF/utils/actions/workflows/ci.yml/badge.svg)](https://github.com/GregoireF/utils/actions/workflows/ci.yml)
 [![license](https://img.shields.io/badge/license-MIT-blue)](https://github.com/GregoireF/utils/blob/main/LICENSE)
+[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
 Shared [commitlint](https://commitlint.js.org) configuration with emoji support — enforces Conventional Commits across all projects.
 
