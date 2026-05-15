@@ -1,6 +1,6 @@
 {
   "name": "@gregoiref/logger",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Structured, typed logger with pluggable transports — zero dependencies",
   "keywords": ["typescript", "logger", "structured-logging", "zero-dependencies"],
   "homepage": "https://github.com/GregoireF/utils/tree/main/packages/logger",
@@ -9,7 +9,9 @@
     "url": "https://github.com/GregoireF/utils.git",
     "directory": "packages/logger"
   },
-  "bugs": { "url": "https://github.com/GregoireF/utils/issues" },
+  "bugs": {
+    "url": "https://github.com/GregoireF/utils/issues"
+  },
   "license": "MIT",
   "type": "module",
   "exports": {
