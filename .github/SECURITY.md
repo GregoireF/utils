@@ -43,6 +43,8 @@ This repository employs multiple independent layers of protection:
 | **OSSF Scorecard** | Supply chain posture | Weekly schedule |
 | **Renovate** | Dependency freshness | Weekly (auto-merge minor/patch) |
 | `@biomejs/biome` | Code quality gates | Every commit (pre-commit hook) |
+| **Jazzer.js** | Coverage-guided fuzzing | Weekly schedule (3 fuzz targets) |
+| **Dependency Review** | License + CVE gate on PRs | Every pull request |
 
 ## Scope
 

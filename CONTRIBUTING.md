@@ -38,6 +38,9 @@ pnpm turbo run build
 # Run tests in watch mode (one package)
 pnpm --filter @gregoiref/ts-utils run test:watch
 
+# Run a fuzz target locally (Ctrl+C to stop; build first)
+pnpm turbo run build && npx jazzer fuzz/result.fuzz.js
+
 # Interactive guided commit
 pnpm commit
 ```
@@ -59,7 +62,11 @@ All code must comply with the strictest compiler flags (see `configs/tsconfig/ba
 
 ### Coverage at 100%
 
-All four coverage metrics (lines, functions, branches, statements) must reach 100%. This is enforced by the Vitest threshold and will fail CI.
+All four coverage metrics (lines, functions, branches, statements) must reach 100%. This is enforced by the Vitest threshold in `@gregoiref/vitest-config` and will fail CI.
+
+### Fuzz targets
+
+New functions that process untrusted input (parsers, validators, serializers) should have a corresponding fuzz target in `fuzz/`. Use an existing target as a template. Fuzz tests run weekly in CI via the `fuzz.yml` workflow — see `fuzz/README.md`.
 
 ### JSDoc on all public APIs
 
@@ -136,6 +143,7 @@ Before opening a PR, verify:
 - [ ] README.md updated if the public API changed
 - [ ] Changeset added for user-facing changes (see below)
 - [ ] No third-party runtime dependencies introduced in `packages/*` (inter-monorepo `workspace:*` deps are allowed)
+- [ ] Fuzz target added or updated if the change introduces new input-processing logic
 
 ---
 
