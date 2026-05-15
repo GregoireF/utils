@@ -1,6 +1,6 @@
 {
   "name": "@gregoiref/changeset-config",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Shared Changesets configuration factory for TypeScript monorepos — @GregoireF",
   "keywords": ["changesets", "release", "versioning", "monorepo", "configuration"],
   "homepage": "https://github.com/GregoireF/utils/tree/main/configs/changeset",
@@ -9,7 +9,9 @@
     "url": "https://github.com/GregoireF/utils.git",
     "directory": "configs/changeset"
   },
-  "bugs": { "url": "https://github.com/GregoireF/utils/issues" },
+  "bugs": {
+    "url": "https://github.com/GregoireF/utils/issues"
+  },
   "license": "MIT",
   "type": "module",
   "exports": {

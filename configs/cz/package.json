@@ -1,6 +1,6 @@
 {
   "name": "@gregoiref/cz-config",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Shared cz-git configuration with emoji — @GregoireF projects",
   "keywords": ["commitizen", "cz-git", "emoji", "conventional-commits"],
   "homepage": "https://github.com/GregoireF/utils/tree/main/configs/cz",
@@ -9,7 +9,9 @@
     "url": "https://github.com/GregoireF/utils.git",
     "directory": "configs/cz"
   },
-  "bugs": { "url": "https://github.com/GregoireF/utils/issues" },
+  "bugs": {
+    "url": "https://github.com/GregoireF/utils/issues"
+  },
   "license": "MIT",
   "main": "index.cjs",
   "exports": {
