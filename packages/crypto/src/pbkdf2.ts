@@ -34,7 +34,7 @@ export async function deriveKey(options: {
   password: string
   salt?: string | BufferSource
   iterations?: number
-}): Promise<{ key: CryptoKey; salt: Uint8Array }> {
+}): Promise<{ key: CryptoKey; salt: Uint8Array<ArrayBuffer> }> {
   const { password, salt: rawSalt, iterations = DEFAULT_ITERATIONS } = options
   const salt = rawSalt === undefined ? randomBytes(SALT_BYTES) : toUint8Array(rawSalt)
 

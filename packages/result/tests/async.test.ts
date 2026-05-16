@@ -43,7 +43,11 @@ describe('resultAll()', () => {
   })
 
   it('infers the correct Ok type', async () => {
-    const r = await resultAll([Promise.resolve(ok('a')), Promise.resolve(ok('b'))])
+    const promises: readonly Promise<Result<string, Error>>[] = [
+      Promise.resolve(ok('a')),
+      Promise.resolve(ok('b')),
+    ]
+    const r = await resultAll(promises)
     expectTypeOf(r).toMatchTypeOf<Result<readonly string[], Error>>()
   })
 })
