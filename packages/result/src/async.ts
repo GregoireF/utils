@@ -81,7 +81,7 @@ export async function withTimeout<T, E>(
   ms: number,
 ): Promise<Result<T, E | OperationTimeoutError>> {
   let id: ReturnType<typeof setTimeout>
-  const timer = new Promise<Result<never, OperationTimeoutError>>(resolve => {
+  const timer = new Promise<Result<never, OperationTimeoutError>>((resolve) => {
     id = setTimeout(() => resolve(err(new OperationTimeoutError(ms))), ms)
   })
   try {
