@@ -25,6 +25,7 @@ Zero-dependency TypeScript utilities for Node.js, Cloudflare Workers, and modern
 
 ```bash
 pnpm add @gregoiref/result
+pnpm add @gregoiref/crypto
 pnpm add @gregoiref/http-client
 pnpm add @gregoiref/logger
 pnpm add @gregoiref/env-validator
@@ -39,6 +40,7 @@ pnpm add @gregoiref/date
 | Package | Description |
 |---|---|
 | [`@gregoiref/result`](https://github.com/GregoireF/utils/tree/main/packages/result) | Typed `Result<T, E>` — no-throw error handling |
+| [`@gregoiref/crypto`](https://github.com/GregoireF/utils/tree/main/packages/crypto) | Web Crypto API — hashing, HMAC, AES-GCM, PBKDF2, random |
 | [`@gregoiref/http-client`](https://github.com/GregoireF/utils/tree/main/packages/http-client) | Fetch wrapper returning `Result` — no try/catch |
 | [`@gregoiref/logger`](https://github.com/GregoireF/utils/tree/main/packages/logger) | Structured JSON logger with child context |
 | [`@gregoiref/env-validator`](https://github.com/GregoireF/utils/tree/main/packages/env-validator) | Runtime env validation with types — fail fast at startup |
