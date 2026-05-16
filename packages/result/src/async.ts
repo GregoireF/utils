@@ -80,14 +80,14 @@ export async function withTimeout<T, E>(
   promise: Promise<Result<T, E>>,
   ms: number,
 ): Promise<Result<T, E | OperationTimeoutError>> {
-  let id: ReturnType<typeof setTimeout>
+  let id: ReturnType<typeof setTimeout> | undefined
   const timer = new Promise<Result<never, OperationTimeoutError>>((resolve) => {
     id = setTimeout(() => resolve(err(new OperationTimeoutError(ms))), ms)
   })
   try {
     return await Promise.race([promise, timer])
   } finally {
-    clearTimeout(id!)
+    clearTimeout(id)
   }
 }
 
@@ -118,7 +118,7 @@ export async function withRetry<T, E>(
     if (last.ok) return last
     if (shouldRetry !== undefined && !shouldRetry(last.error, i)) return last
     if (i < attempts - 1) {
-      await new Promise<void>(resolve => setTimeout(resolve, delay * factor ** i))
+      await new Promise<void>((resolve) => setTimeout(resolve, delay * factor ** i))
     }
   }
 

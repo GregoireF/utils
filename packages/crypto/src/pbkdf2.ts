@@ -16,7 +16,7 @@ const SALT_BYTES = 16
 const SEP = '$'
 
 /** Serialised format version tag. */
-const FORMAT = `pbkdf2-sha256`
+const FORMAT = 'pbkdf2-sha256'
 
 // ─── Public API ───────────────────────────────────────────────────────────────
 
@@ -105,7 +105,7 @@ export async function verifyPassword(password: string, stored: string): Promise<
   const [format, iterStr, saltHex, hashHex] = stored.split(SEP)
   if (format !== FORMAT || !iterStr || !saltHex || !hashHex) return false
 
-  const iterations = parseInt(iterStr, 10)
+  const iterations = Number.parseInt(iterStr, 10)
   if (Number.isNaN(iterations) || iterations <= 0) return false
 
   let salt: Uint8Array<ArrayBuffer>

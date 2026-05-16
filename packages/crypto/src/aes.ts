@@ -18,11 +18,10 @@ const SEPARATOR = '.'
  * @param bits - Key length in bits (default: 256).
  */
 export async function generateAesKey(bits: AesKeyBits = 256): Promise<CryptoKey> {
-  return globalThis.crypto.subtle.generateKey(
-    { name: 'AES-GCM', length: bits },
-    true,
-    ['encrypt', 'decrypt'],
-  )
+  return globalThis.crypto.subtle.generateKey({ name: 'AES-GCM', length: bits }, true, [
+    'encrypt',
+    'decrypt',
+  ])
 }
 
 /**
@@ -85,10 +84,6 @@ export async function decryptAes(key: CryptoKey, ciphertext: string): Promise<st
   }
   const iv = base64url.decode(parts[0])
   const data = base64url.decode(parts[1])
-  const plaintext = await globalThis.crypto.subtle.decrypt(
-    { name: 'AES-GCM', iv },
-    key,
-    data,
-  )
+  const plaintext = await globalThis.crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, data)
   return new TextDecoder().decode(plaintext)
 }
