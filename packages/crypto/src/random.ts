@@ -6,7 +6,7 @@ import { base64url, hex } from './encoding.js'
  * Generates `length` cryptographically secure random bytes.
  * Backed by `crypto.getRandomValues` — available in Node 18+, Cloudflare Workers, and browsers.
  */
-export function randomBytes(length: number): Uint8Array {
+export function randomBytes(length: number): Uint8Array<ArrayBuffer> {
   return globalThis.crypto.getRandomValues(new Uint8Array(length))
 }
 

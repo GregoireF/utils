@@ -3,9 +3,9 @@
 const encoder = new TextEncoder()
 
 /** Converts a string or any BufferSource to Uint8Array without copying when possible. */
-export function toUint8Array(input: string | BufferSource): Uint8Array {
+export function toUint8Array(input: string | BufferSource): Uint8Array<ArrayBuffer> {
   if (typeof input === 'string') return encoder.encode(input)
-  if (input instanceof Uint8Array) return input
+  if (input instanceof Uint8Array) return new Uint8Array(input)
   if (input instanceof ArrayBuffer) return new Uint8Array(input)
   return new Uint8Array(input.buffer, input.byteOffset, input.byteLength)
 }
@@ -14,7 +14,7 @@ function bufferToHex(buffer: ArrayBuffer): string {
   return Array.from(new Uint8Array(buffer), b => b.toString(16).padStart(2, '0')).join('')
 }
 
-function hexToBuffer(str: string): Uint8Array {
+function hexToBuffer(str: string): Uint8Array<ArrayBuffer> {
   if (str.length % 2 !== 0) throw new RangeError('Hex string length must be even')
   const bytes = new Uint8Array(str.length / 2)
   for (let i = 0; i < str.length; i += 2) {
@@ -31,7 +31,7 @@ function bufferToBase64url(buffer: ArrayBuffer): string {
   return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
 }
 
-function base64urlToBuffer(str: string): Uint8Array {
+function base64urlToBuffer(str: string): Uint8Array<ArrayBuffer> {
   const padded = str.replace(/-/g, '+').replace(/_/g, '/').padEnd(
     str.length + ((4 - (str.length % 4)) % 4),
     '=',

@@ -108,8 +108,8 @@ export async function verifyPassword(password: string, stored: string): Promise<
   const iterations = parseInt(iterStr, 10)
   if (Number.isNaN(iterations) || iterations <= 0) return false
 
-  let salt: Uint8Array
-  let expectedHash: Uint8Array
+  let salt: Uint8Array<ArrayBuffer>
+  let expectedHash: Uint8Array<ArrayBuffer>
   try {
     salt = hex.decode(saltHex)
     expectedHash = hex.decode(hashHex)

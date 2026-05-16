@@ -87,9 +87,9 @@ export async function hmacVerify(
   signature: string,
 ): Promise<boolean> {
   const cryptoKey = await importHmacKey(key, algorithm)
-  let sigBytes: Uint8Array
+  let sigBytes: Uint8Array<ArrayBuffer>
   try {
-    sigBytes = (await import('./encoding.js')).hex.decode(signature)
+    sigBytes = hex.decode(signature)
   } catch {
     return false
   }
