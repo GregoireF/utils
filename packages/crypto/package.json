@@ -1,16 +1,8 @@
 {
   "name": "@gregoiref/crypto",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Web Crypto API utilities — hashing, HMAC, AES-GCM, PBKDF2, random tokens — zero dependencies",
-  "keywords": [
-    "typescript",
-    "crypto",
-    "webcrypto",
-    "hmac",
-    "aes",
-    "pbkdf2",
-    "zero-dependencies"
-  ],
+  "keywords": ["typescript", "crypto", "webcrypto", "hmac", "aes", "pbkdf2", "zero-dependencies"],
   "homepage": "https://github.com/GregoireF/utils/tree/main/packages/crypto",
   "repository": {
     "type": "git",
@@ -30,10 +22,7 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist",
-    "!dist/**/*.test.*"
-  ],
+  "files": ["dist", "!dist/**/*.test.*"],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
     "access": "public"
