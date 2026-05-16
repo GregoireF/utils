@@ -5,7 +5,7 @@ const encoder = new TextEncoder()
 /** Converts a string or any BufferSource to Uint8Array without copying when possible. */
 export function toUint8Array(input: string | BufferSource): Uint8Array<ArrayBuffer> {
   if (typeof input === 'string') return encoder.encode(input)
-  if (input instanceof Uint8Array) return new Uint8Array(input)
+  if (input instanceof Uint8Array) return input as Uint8Array<ArrayBuffer>
   if (input instanceof ArrayBuffer) return new Uint8Array(input)
   return new Uint8Array(input.buffer, input.byteOffset, input.byteLength)
 }
