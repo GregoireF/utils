@@ -1,14 +1,8 @@
 {
   "name": "@gregoiref/http-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Typed fetch wrapper with interceptors, timeout, and Result<T, E> error handling",
-  "keywords": [
-    "typescript",
-    "fetch",
-    "http",
-    "client",
-    "result"
-  ],
+  "keywords": ["typescript", "fetch", "http", "client", "result"],
   "homepage": "https://github.com/GregoireF/utils/tree/main/packages/http-client",
   "repository": {
     "type": "git",
@@ -28,10 +22,7 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist",
-    "!dist/**/*.test.*"
-  ],
+  "files": ["dist", "!dist/**/*.test.*"],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
     "access": "public"
