@@ -1,0 +1,58 @@
+{
+  "name": "@gregoiref/crypto",
+  "version": "0.1.0",
+  "description": "Web Crypto API utilities — hashing, HMAC, AES-GCM, PBKDF2, random tokens — zero dependencies",
+  "keywords": [
+    "typescript",
+    "crypto",
+    "webcrypto",
+    "hmac",
+    "aes",
+    "pbkdf2",
+    "zero-dependencies"
+  ],
+  "homepage": "https://github.com/GregoireF/utils/tree/main/packages/crypto",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GregoireF/utils.git",
+    "directory": "packages/crypto"
+  },
+  "bugs": {
+    "url": "https://github.com/GregoireF/utils/issues"
+  },
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "!dist/**/*.test.*"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=9"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "lint": "biome check src",
+    "typecheck": "tsc",
+    "test": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@gregoiref/biome-config": "workspace:*",
+    "@gregoiref/tsconfig": "workspace:*",
+    "@gregoiref/vitest-config": "workspace:*",
+    "@vitest/coverage-v8": "^4.0.0",
+    "vitest": "^4.0.0"
+  }
+}

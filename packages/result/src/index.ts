@@ -14,3 +14,11 @@ export {
   fromThrowable,
   fromPromise,
 } from './result.js'
+export {
+  OperationTimeoutError,
+  resultAll,
+  resultSettled,
+  withTimeout,
+  withRetry,
+} from './async.js'
+export type { RetryOptions } from './async.js'
