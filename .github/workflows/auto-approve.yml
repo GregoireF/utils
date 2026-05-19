@@ -20,7 +20,7 @@ jobs:
       github.event.workflow_run.event == 'pull_request' &&
       github.event.workflow_run.conclusion == 'success'
     steps:
-      - name: Approve and auto-merge if Renovate
+      - name: Approve and auto-merge dependency bots
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -38,7 +38,6 @@ jobs:
           if [ "$AUTHOR" = "renovate[bot]" ] || [ "$AUTHOR" = "dependabot[bot]" ]; then
             gh pr merge "$PR" \
               --repo "$GITHUB_REPOSITORY" \
-              --merge \
-              --auto \
-              --subject "chore(deps): merge dependency update (#${PR})"
+              --squash \
+              --auto
           fi
