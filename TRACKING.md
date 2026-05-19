@@ -162,6 +162,8 @@
 | GitHub Packages | Authentification GitHub requise pour install | Documenter `.npmrc` dans chaque README et Installation |
 | Canary dist-tag | Risque d'install involontaire en prod | Documenter le dist-tag `canary` explicitement |
 | Jazzer.js OSSF | Détecté uniquement via CI (pas en local) | `fuzz.yml` actif — détection Scorecard correcte |
+| Husky + Windows Git Bash | `pnpm exec` non invocable depuis sh.exe sur Windows | Hooks réécris avec invocation directe `node_modules/.bin` |
+| TypeScript 7.x compat | `esModuleInterop: false` déprécié (TS5107) | Retiré de `configs/tsconfig/base.json` — sans impact sur code ESM |
 
 ---
 
@@ -186,3 +188,9 @@
 | 2026-05 | Scorecard : score 7.0/10 — régressions Dangerous-Workflow + Token-Permissions corrigées |
 | 2026-05 | Badges uniformisés : shields.io Codecov par flag, TypeScript strict, Node ≥22 |
 | 2026-05 | Dependency Graph + Dependabot activés ; alertes #22 et #39 dismissées |
+| 2026-05-19 | Fuzz targets convertis CJS → ESM (root `type: module` — `require` interdit en ESM) |
+| 2026-05-19 | `esModuleInterop: false` retiré de la base tsconfig — forward-compat TS 6.x / 7.0 |
+| 2026-05-19 | Husky hooks réécris sans `pnpm exec` — invocation directe `node_modules/.bin` (sh-compatible) |
+| 2026-05-19 | Dependabot ajouté (github-actions + npm) — Renovate laissé en parallèle |
+| 2026-05-19 | `id-token: write` ajouté au job nightly — requis par NPM provenance (OIDC) |
+| 2026-05-19 | auto-approve étendu à `dependabot[bot]` — auto-merge des PRs patch/minor |
