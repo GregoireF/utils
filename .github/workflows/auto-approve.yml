@@ -35,10 +35,10 @@ jobs:
             --approve \
             --body "CI passed — auto-approved."
 
-          if [ "$AUTHOR" = "renovate[bot]" ]; then
+          if [ "$AUTHOR" = "renovate[bot]" ] || [ "$AUTHOR" = "dependabot[bot]" ]; then
             gh pr merge "$PR" \
               --repo "$GITHUB_REPOSITORY" \
               --merge \
               --auto \
-              --subject "chore(deps): merge Renovate update (#${PR})"
+              --subject "chore(deps): merge dependency update (#${PR})"
           fi

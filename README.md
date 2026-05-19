@@ -5,7 +5,7 @@ A TypeScript monorepo of zero-dependency utility libraries and shared configs, u
 [![CI](https://github.com/GregoireF/utils/actions/workflows/ci.yml/badge.svg)](https://github.com/GregoireF/utils/actions/workflows/ci.yml)
 [![CodeQL](https://github.com/GregoireF/utils/actions/workflows/codeql.yml/badge.svg)](https://github.com/GregoireF/utils/actions/workflows/codeql.yml)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/GregoireF/utils/badge)](https://scorecard.dev/viewer/?uri=github.com/GregoireF/utils)
-[![Renovate](https://img.shields.io/badge/renovate-enabled-brightgreen?logo=renovatebot&logoColor=white)](https://renovateapp.com)
+[![Dependabot](https://img.shields.io/badge/dependabot-enabled-025E8C?logo=dependabot&logoColor=white)](https://github.com/GregoireF/utils/network/updates)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 
 ---
@@ -22,6 +22,7 @@ A TypeScript monorepo of zero-dependency utility libraries and shared configs, u
 | [`@gregoiref/http-client`](packages/http-client/) | [![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Fhttp-client%40*&label=&color=blue)](https://github.com/GregoireF/utils/tags) | [![coverage](https://img.shields.io/codecov/c/gh/GregoireF/utils?flag=http-client&label=cov&logo=codecov)](https://app.codecov.io/gh/GregoireF/utils/flags) | Typed `fetch` wrapper with interceptors, timeout, and `Result`-based error handling |
 | [`@gregoiref/logger`](packages/logger/) | [![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Flogger%40*&label=&color=blue)](https://github.com/GregoireF/utils/tags) | [![coverage](https://img.shields.io/codecov/c/gh/GregoireF/utils?flag=logger&label=cov&logo=codecov)](https://app.codecov.io/gh/GregoireF/utils/flags) | Structured JSON logger with pluggable transports |
 | [`@gregoiref/date`](packages/date/) | [![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Fdate%40*&label=&color=blue)](https://github.com/GregoireF/utils/tags) | [![coverage](https://img.shields.io/codecov/c/gh/GregoireF/utils?flag=date&label=cov&logo=codecov)](https://app.codecov.io/gh/GregoireF/utils/flags) | Date helpers (format, diff, add, clamp) without date-fns or Moment |
+| [`@gregoiref/crypto`](packages/crypto/) | [![version](https://img.shields.io/github/v/tag/GregoireF/utils?filter=%40gregoiref%2Fcrypto%40*&label=&color=blue)](https://github.com/GregoireF/utils/tags) | — | Web Crypto API utilities — hashing, HMAC, AES-GCM, PBKDF2, random tokens |
 
 ### Shared configs
 
@@ -133,7 +134,7 @@ pnpm commit
 | Biome | Unified lint + format — replaces ESLint + Prettier |
 | Vitest | Unit tests with v8 coverage, 100% threshold enforced |
 | Changesets | Per-package semver versioning + automatic CHANGELOG |
-| Renovate | Automated dependency updates with SHA pinning + auto-merge |
+| Dependabot | Automated dependency updates (GitHub Actions + npm) with SHA pinning + auto-merge |
 | CodeQL | Static security analysis (`security-extended` query suite) |
 | OSSF Scorecard | Open-source security posture scoring |
 | Jazzer.js | Coverage-guided fuzzing — weekly CI + 3 fuzz targets |
