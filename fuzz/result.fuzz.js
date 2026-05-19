@@ -1,8 +1,16 @@
 // Fuzz target for @gregoiref/result
 // Run: npx jazzer fuzz/result.fuzz.js
-'use strict'
 
-const { ok, err, isOk, isErr, map, flatMap, unwrapOr, fromThrowable } = require('../packages/result/dist/index.js')
+import {
+  err,
+  flatMap,
+  fromThrowable,
+  isErr,
+  isOk,
+  map,
+  ok,
+  unwrapOr,
+} from '../packages/result/dist/index.js'
 
 /**
  * @param {Buffer} data
@@ -26,4 +34,4 @@ function fuzz(data) {
   unwrapOr(r2, 'fallback')
 }
 
-module.exports = { fuzz }
+export { fuzz }

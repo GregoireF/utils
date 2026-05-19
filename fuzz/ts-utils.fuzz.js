@@ -1,8 +1,7 @@
 // Fuzz target for @gregoiref/ts-utils — exercises deepMerge prototype pollution guard
 // Run: npx jazzer fuzz/ts-utils.fuzz.js
-'use strict'
 
-const { deepMerge, pick, omit, groupBy } = require('../packages/ts-utils/dist/index.js')
+import { deepMerge, groupBy, omit, pick } from '../packages/ts-utils/dist/index.js'
 
 /**
  * @param {Buffer} data
@@ -17,7 +16,7 @@ function fuzz(data) {
       deepMerge({ a: 1, b: { c: 2 } }, parsed)
 
       // Snapshot: prototype must remain clean
-      if (({}).evil !== undefined) throw new Error('Prototype polluted!')
+      if ({}.evil !== undefined) throw new Error('Prototype polluted!')
     }
 
     if (Array.isArray(parsed)) {
@@ -32,4 +31,4 @@ function fuzz(data) {
   }
 }
 
-module.exports = { fuzz }
+export { fuzz }

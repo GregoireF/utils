@@ -1,8 +1,7 @@
 // Fuzz target for @gregoiref/env-validator
 // Run: npx jazzer fuzz/env-validator.fuzz.js
-'use strict'
 
-const { createEnv, v } = require('../packages/env-validator/dist/index.js')
+import { createEnv, v } from '../packages/env-validator/dist/index.js'
 
 const SCHEMA = {
   PORT: v.number().min(1).max(65535).default(3000),
@@ -34,4 +33,4 @@ function fuzz(data) {
   }
 }
 
-module.exports = { fuzz }
+export { fuzz }
