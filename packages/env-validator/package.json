@@ -48,7 +48,7 @@
     "test": "vitest run --coverage"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
+    "@types/node": "^22.20.0",
     "@gregoiref/biome-config": "workspace:*",
     "@gregoiref/tsconfig": "workspace:*",
     "@gregoiref/vitest-config": "workspace:*",
