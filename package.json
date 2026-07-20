@@ -35,7 +35,7 @@
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
     "@changesets/changelog-github": "^0.7.0",
-    "@changesets/cli": "^2.27.12",
+    "@changesets/cli": "^2.31.1",
     "@gregoiref/commitlint-config": "workspace:*",
     "@gregoiref/cz-config": "workspace:*",
     "@secretlint/secretlint-rule-preset-recommend": "^9.3.3",
