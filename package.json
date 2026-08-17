@@ -39,7 +39,7 @@
     "@gregoiref/commitlint-config": "workspace:*",
     "@gregoiref/cz-config": "workspace:*",
     "@secretlint/secretlint-rule-preset-recommend": "^9.3.3",
-    "cz-git": "^1.11.0",
+    "cz-git": "^1.13.2",
     "@size-limit/preset-small-lib": "^11.2.0",
     "esbuild": ">=0.25.0",
     "size-limit": "^11.2.0",
